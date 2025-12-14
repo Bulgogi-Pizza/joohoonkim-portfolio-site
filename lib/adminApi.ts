@@ -8,8 +8,9 @@ const getApiBase = () => {
     if (typeof window !== 'undefined') {
         return ''; // Use relative path in browser for Next.js rewrites
     }
-    // On server side, use the full API URL
-    return process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'https://api.joohoonkim.site';
+    // On server side or build time, use the full API URL
+    // NEXT_PUBLIC_ prefix makes it available in client-side code after build
+    return process.env.NEXT_PUBLIC_API_URL || 'https://api.joohoonkim.site';
 };
 
 export class AdminAPI {
@@ -95,5 +96,6 @@ export class AdminAPI {
         return res.json();
     }
 }
+
 
 
