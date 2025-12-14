@@ -13,16 +13,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     useEffect(() => {
         checkAuth();
-    }, []);
+    }, [pathname]);
 
     const checkAuth = async () => {
+        // Skip auth check on login page
+        if (pathname === '/admin/login') {
+            setLoading(false);
+            return;
+        }
+
         try {
             const isAdmin = await AdminAPI.checkAuth();
             setIsAuthenticated(isAdmin);
-            if (!isAdmin && pathname !== '/admin/login') {
+            if (!isAdmin) {
                 router.push('/admin/login');
             }
         } catch (error) {
+            console.error('Auth check failed:', error);
+            setIsAuthenticated(false);
             router.push('/admin/login');
         } finally {
             setLoading(false);

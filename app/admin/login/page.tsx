@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { AdminAPI } from '@/lib/adminApi';
 
 export default function AdminLoginPage() {
@@ -9,7 +8,6 @@ export default function AdminLoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -18,10 +16,10 @@ export default function AdminLoginPage() {
 
         try {
             await AdminAPI.login(username, password);
-            router.push('/admin');
+            // Force a hard navigation to refresh authentication state
+            window.location.href = '/admin';
         } catch (err) {
             setError('Invalid credentials');
-        } finally {
             setLoading(false);
         }
     };

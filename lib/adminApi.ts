@@ -1,6 +1,8 @@
 // Admin API utilities for authentication and CRUD operations
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Use relative path to leverage Next.js rewrites and avoid CORS issues
+// Next.js will proxy /api/* to the backend API based on next.config.js rewrites
+const API_BASE = '';
 
 export class AdminAPI {
     // Authentication
