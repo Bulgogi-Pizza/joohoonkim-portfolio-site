@@ -1,13 +1,21 @@
 // Admin API utilities for authentication and CRUD operations
 
-// Use relative path to leverage Next.js rewrites and avoid CORS issues
-// Next.js will proxy /api/* to the backend API based on next.config.js rewrites
-const API_BASE = '';
+// Use relative path in browser to leverage Next.js rewrites and avoid CORS issues
+// In browser: /api/* -> Next.js rewrites to backend
+// In server/build: use full URL
+const getApiBase = () => {
+    // Check if we're in the browser
+    if (typeof window !== 'undefined') {
+        return ''; // Use relative path in browser for Next.js rewrites
+    }
+    // On server side, use the full API URL
+    return process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'https://api.joohoonkim.site';
+};
 
 export class AdminAPI {
     // Authentication
     static async login(username: string, password: string) {
-        const res = await fetch(`${API_BASE}/api/auth/login`, {
+        const res = await fetch(`${getApiBase()}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -18,7 +26,7 @@ export class AdminAPI {
     }
 
     static async logout() {
-        const res = await fetch(`${API_BASE}/api/auth/logout`, {
+        const res = await fetch(`${getApiBase()}/api/auth/logout`, {
             method: 'POST',
             credentials: 'include',
         });
@@ -26,7 +34,7 @@ export class AdminAPI {
     }
 
     static async checkAuth() {
-        const res = await fetch(`${API_BASE}/api/auth/me`, {
+        const res = await fetch(`${getApiBase()}/api/auth/me`, {
             credentials: 'include',
         });
         const data = await res.json();
@@ -35,7 +43,7 @@ export class AdminAPI {
 
     // Generic CRUD operations
     static async list(resource: string) {
-        const res = await fetch(`${API_BASE}/api/${resource}`, {
+        const res = await fetch(`${getApiBase()}/api/${resource}`, {
             credentials: 'include',
         });
         if (!res.ok) throw new Error(`Failed to fetch ${resource}`);
@@ -43,7 +51,7 @@ export class AdminAPI {
     }
 
     static async create(resource: string, data: any) {
-        const res = await fetch(`${API_BASE}/api/${resource}`, {
+        const res = await fetch(`${getApiBase()}/api/${resource}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -54,7 +62,7 @@ export class AdminAPI {
     }
 
     static async update(resource: string, id: number, data: any) {
-        const res = await fetch(`${API_BASE}/api/${resource}/${id}`, {
+        const res = await fetch(`${getApiBase()}/api/${resource}/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -65,7 +73,7 @@ export class AdminAPI {
     }
 
     static async delete(resource: string, id: number) {
-        const res = await fetch(`${API_BASE}/api/${resource}/${id}`, {
+        const res = await fetch(`${getApiBase()}/api/${resource}/${id}`, {
             method: 'DELETE',
             credentials: 'include',
         });
@@ -78,7 +86,7 @@ export class AdminAPI {
         const formData = new FormData();
         formData.append('file', file);
 
-        const res = await fetch(`${API_BASE}/api/${endpoint}`, {
+        const res = await fetch(`${getApiBase()}/api/${endpoint}`, {
             method: 'POST',
             body: formData,
             credentials: 'include',
@@ -87,3 +95,5 @@ export class AdminAPI {
         return res.json();
     }
 }
+
+
