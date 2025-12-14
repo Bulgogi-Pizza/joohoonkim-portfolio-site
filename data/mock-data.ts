@@ -46,6 +46,7 @@ export const publications = [
         featured_info: 'Featured in Nature News',
         doi: '',
         arxiv: 'https://arxiv.org/abs/example',
+        link: 'https://www.nature.com/'
     },
     {
         id: 2,
@@ -217,16 +218,18 @@ export const researchHighlights = [
 export const coverArts = [
     {
         id: 1,
-        title: "Nature Materials Cover",
-        journal: "Nature Materials",
-        year: "2023",
-        image_path: "/assets/images/hero-image.png"
+        title: 'Nature Materials Cover',
+        journal: 'Nature Materials',
+        year: '2023',
+        image_path: '/assets/images/hero-image.png',
+        link: 'https://www.nature.com/'
     },
     {
         id: 2,
-        title: "Advanced Materials Cover",
-        journal: "Advanced Materials",
-        year: "2024",
-        image_path: "/assets/images/publication-thumb1.png"
+        title: 'Advanced Materials Cover',
+        journal: 'Advanced Materials',
+        year: '2024',
+        image_path: '/assets/images/publication-thumb1.png',
+        link: '/publications'
     }
 ];

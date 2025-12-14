@@ -90,11 +90,11 @@ function HeroSection() {
     }, [representativeWorks.length]);
 
     return (
-        <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-gray-950 transition-colors">
+        <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-brand-dark transition-colors">
             {/* Subtle Background Gradients - Professional & Natural */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-purple-100/50 dark:bg-purple-900/20 rounded-full blur-[120px]" />
+                <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-blue-100/50 dark:bg-blue-900/10 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-purple-100/50 dark:bg-purple-900/10 rounded-full blur-[120px]" />
             </div>
 
             <div className="container mx-auto px-6 lg:px-12 relative z-10 py-12">
