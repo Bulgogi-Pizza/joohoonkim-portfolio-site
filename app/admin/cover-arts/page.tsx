@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AdminAPI } from '@/lib/adminApi';
+import { getImageUrl } from '@/lib/imageUtils';
 
 interface CoverArt {
     id?: number;
@@ -196,7 +197,7 @@ function Modal({ item, onSave, onClose }: { item: CoverArt; onSave: (item: Cover
                         </div>
                         {formData.image_path && (
                             <div className="mt-2">
-                                <img src={formData.image_path} alt="Preview" className="h-32 w-auto object-contain bg-gray-100 rounded" />
+                                <img src={getImageUrl(formData.image_path)} alt="Preview" className="h-32 w-auto object-contain bg-gray-100 rounded" />
                             </div>
                         )}
                     </div>

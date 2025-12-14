@@ -184,7 +184,7 @@ function Modal({ item, onSave, onClose }: { item: Media; onSave: (item: Media) =
                         </div>
                         {formData.image_url && (
                             <div className="mt-2">
-                                <img src={formData.image_url} alt="Preview" className="h-20 w-auto object-contain bg-gray-100 rounded" />
+                                <img src={getImageUrl(formData.image_url)} alt="Preview" className="h-20 w-auto object-contain bg-gray-100 rounded" />
                             </div>
                         )}
                     </div>

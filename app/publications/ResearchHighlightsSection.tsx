@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import HorizontalGallery from "@/components/HorizontalGallery";
 import { useRouter } from "next/navigation";
+import { getImageUrl } from "@/lib/imageUtils";
 
 const isExternal = (href = "") =>
     /^https?:\/\//i.test(href) || href.startsWith("mailto:") || href.startsWith("tel:");
@@ -80,7 +81,7 @@ export default function ResearchHighlightsSection() {
                         {/* 20:13 Ratio */}
                         <div style={{ aspectRatio: "20 / 13" }}>
                             <img
-                                src={item.image_path}
+                                src={getImageUrl(item.image_path)}
                                 alt={item.alt_text || item.description || "Research highlight"}
                                 className="w-full h-full object-cover block"
                                 loading="lazy"

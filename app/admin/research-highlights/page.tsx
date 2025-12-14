@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AdminAPI } from '@/lib/adminApi';
+import { getImageUrl } from '@/lib/imageUtils';
 
 interface ResearchHighlight {
     id?: number;
@@ -100,7 +101,7 @@ export default function ResearchHighlightsAdmin() {
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{item.order_index}</td>
                                 <td className="px-6 py-4">
                                     {item.image_path && (
-                                        <img src={item.image_path} alt={item.alt_text || 'Highlight'} className="h-20 w-auto object-cover rounded" />
+                                        <img src={getImageUrl(item.image_path)} alt={item.alt_text || 'Highlight'} className="h-20 w-auto object-cover rounded" />
                                     )}
                                 </td>
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white max-w-xs truncate">{item.description}</td>
@@ -168,7 +169,7 @@ function Modal({ item, onSave, onClose }: { item: ResearchHighlight; onSave: (it
                         </div>
                         {formData.image_path && (
                             <div className="mt-2">
-                                <img src={formData.image_path} alt="Preview" className="h-32 w-auto object-contain bg-gray-100 rounded" />
+                                <img src={getImageUrl(formData.image_path)} alt="Preview" className="h-32 w-auto object-contain bg-gray-100 rounded" />
                             </div>
                         )}
                     </div>

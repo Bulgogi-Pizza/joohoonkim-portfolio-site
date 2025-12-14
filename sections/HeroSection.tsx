@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowRight, FiChevronLeft, FiChevronRight, FiPause, FiPlay } from 'react-icons/fi';
 import Link from 'next/link';
+import { getImageUrl } from '@/lib/imageUtils';
 
 interface Work {
     id: number;
@@ -133,7 +134,7 @@ function HeroSection() {
                                         className="absolute inset-0"
                                     >
                                         <img
-                                            src={representativeWorks[currentIndex].image_path}
+                                            src={getImageUrl(representativeWorks[currentIndex].image_path)}
                                             alt={representativeWorks[currentIndex].title}
                                             className="w-full h-full object-cover"
                                         />

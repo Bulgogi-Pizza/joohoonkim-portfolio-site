@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AdminAPI } from '@/lib/adminApi';
+import { getImageUrl } from '@/lib/imageUtils';
 
 interface ResearchArea {
     id?: number;
@@ -237,7 +238,7 @@ function Modal({ item, onSave, onClose }: { item: ResearchArea; onSave: (item: R
                             </div>
                             {formData.icon_path && (
                                 <div className="mt-2">
-                                    <img src={formData.icon_path} alt="Icon preview" className="h-12 w-12 object-contain bg-gray-100 rounded" />
+                                    <img src={getImageUrl(formData.icon_path)} alt="Icon preview" className="h-12 w-12 object-contain bg-gray-100 rounded" />
                                 </div>
                             )}
                         </div>

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from 'framer-motion';
+import { getImageUrl } from '@/lib/imageUtils';
 
 export default function CoverArtsSection() {
     const [coverArts, setCoverArts] = useState<any[]>([]);
@@ -42,7 +43,7 @@ export default function CoverArtsSection() {
                         >
                             <div className="aspect-[3/4] relative overflow-hidden">
                                 <img
-                                    src={art.image_path}
+                                    src={getImageUrl(art.image_path)}
                                     alt={art.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
