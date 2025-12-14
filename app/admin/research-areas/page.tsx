@@ -26,7 +26,7 @@ export default function ResearchAreasAdmin() {
 
     const loadItems = async () => {
         try {
-            const data = await AdminAPI.list('research-areas');
+            const data = await AdminAPI.list('research-areas?active_only=False');
             setItems(data);
         } catch (error) {
             console.error('Failed to load research areas:', error);

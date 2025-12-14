@@ -26,7 +26,7 @@ export default function ResearchHighlightsAdmin() {
 
     const loadItems = async () => {
         try {
-            const data = await AdminAPI.list('research-highlights');
+            const data = await AdminAPI.list('research-highlights?active_only=False');
             setItems(data);
         } catch (error) {
             console.error('Failed to load research highlights:', error);

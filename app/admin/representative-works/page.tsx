@@ -29,7 +29,7 @@ export default function RepresentativeWorksAdmin() {
 
     const loadItems = async () => {
         try {
-            const data = await AdminAPI.list('representative-works');
+            const data = await AdminAPI.list('representative-works?active_only=False');
             setItems(data);
         } catch (error) {
             console.error('Failed to load representative works:', error);

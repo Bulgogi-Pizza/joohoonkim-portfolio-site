@@ -29,7 +29,7 @@ export default function CoverArtsAdmin() {
 
     const loadItems = async () => {
         try {
-            const data = await AdminAPI.list('cover-arts');
+            const data = await AdminAPI.list('cover-arts?active_only=False');
             setItems(data);
         } catch (error) {
             console.error('Failed to load cover arts:', error);

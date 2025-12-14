@@ -36,6 +36,7 @@ export class AdminAPI {
 
     // Generic CRUD operations
     static async list(resource: string) {
+        // resource can include query parameters like "representative-works?active_only=False"
         const res = await fetch(`${API_BASE}/api/${resource}`, {
             credentials: 'include',
         });
