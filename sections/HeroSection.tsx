@@ -98,13 +98,13 @@ function HeroSection() {
             </div>
 
             <div className="container mx-auto px-6 lg:px-12 relative z-10 py-12">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
                     {/* Left: Text Content - Huge & Impactful */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="space-y-10"
+                        className="space-y-10 order-2 md:order-1"
                     >
                         <div className="space-y-4">
                             <h1 className="text-6xl lg:text-8xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
@@ -142,9 +142,9 @@ function HeroSection() {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                            className="relative"
+                            className="relative order-1 md:order-2"
                         >
-                            <div className="relative aspect-[4/3] lg:aspect-square max-h-[600px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 dark:border-gray-800">
+                            <div className="relative w-full h-[300px] md:h-[450px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 dark:border-gray-800 bg-gray-100 dark:bg-gray-800">
                                 <AnimatePresence mode="wait">
                                     <motion.div
                                         key={currentIndex}
@@ -152,7 +152,7 @@ function HeroSection() {
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         transition={{ duration: 0.5 }}
-                                        className="absolute inset-0"
+                                        className="w-full h-full"
                                     >
                                         <img
                                             src={getImageUrl(representativeWorks[currentIndex].image_path)}

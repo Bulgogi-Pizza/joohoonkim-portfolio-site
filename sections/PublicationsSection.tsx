@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { FiExternalLink, FiFileText, FiArrowRight } from 'react-icons/fi';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function PublicationsSection() {
     const [publications, setPublications] = useState<any[]>([]);
+    const router = useRouter();
 
     useEffect(() => {
         fetch('/api/publications')
@@ -15,35 +17,53 @@ export default function PublicationsSection() {
             .catch(err => console.error(err));
     }, []);
 
+    const resolveLink = (pub: any) => {
+        if (pub.link) return pub.link;
+        if (pub.doi) return `https://doi.org/${pub.doi}`;
+        if (pub.arxiv) return pub.arxiv;
+        return `/publications`;
+    };
+
+    const handleCardClick = useCallback((pub: any) => {
+        const url = resolveLink(pub);
+        if (!url) return;
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        } else {
+            router.push(url);
+        }
+    }, [router]);
+
     return (
-        <section id="publications" className="py-24 bg-white dark:bg-gray-900">
+        <section id="publications" className="py-12 md:py-24 bg-white dark:bg-gray-900">
             <div className="container mx-auto px-6 lg:px-12">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4"
+                    className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 gap-4"
                 >
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                             Selected Publications
                         </h2>
                         <div className="w-20 h-1 bg-blue-600 rounded-full" />
                     </div>
-                    <Link href="/publications" className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300 transition-colors flex items-center gap-2">
+                    <Link href="/publications" className="text-sm md:text-base text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300 transition-colors flex items-center gap-2">
                         View All Publications <FiArrowRight />
                     </Link>
                 </motion.div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                     {publications.slice(0, 5).map((pub, index) => (
-                        <motion.div
+                        <motion.button
                             key={pub.id}
+                            onClick={() => handleCardClick(pub)}
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="group bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-300"
+                            className="text-left w-full group bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <div className="flex flex-col md:flex-row gap-6 items-start">
                                 <div className="flex-1">
@@ -87,7 +107,7 @@ export default function PublicationsSection() {
                                     )}
                                 </div>
                             </div>
-                        </motion.div>
+                        </motion.button>
                     ))}
                 </div>
             </div>
