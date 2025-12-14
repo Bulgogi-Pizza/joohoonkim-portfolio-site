@@ -16,7 +16,7 @@ const getApiBase = () => {
 export class AdminAPI {
     // Authentication
     static async login(username: string, password: string) {
-        const res = await fetch(`${getApiBase()}/api/auth/login`, {
+        const res = await fetch(`${API_BASE}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
@@ -27,7 +27,7 @@ export class AdminAPI {
     }
 
     static async logout() {
-        const res = await fetch(`${getApiBase()}/api/auth/logout`, {
+        const res = await fetch(`${API_BASE}/api/auth/logout`, {
             method: 'POST',
             credentials: 'include',
         });
@@ -35,7 +35,7 @@ export class AdminAPI {
     }
 
     static async checkAuth() {
-        const res = await fetch(`${getApiBase()}/api/auth/me`, {
+        const res = await fetch(`${API_BASE}/api/auth/me`, {
             credentials: 'include',
         });
         const data = await res.json();
@@ -44,7 +44,7 @@ export class AdminAPI {
 
     // Generic CRUD operations
     static async list(resource: string) {
-        const res = await fetch(`${getApiBase()}/api/${resource}`, {
+        const res = await fetch(`${API_BASE}/api/${resource}`, {
             credentials: 'include',
         });
         if (!res.ok) throw new Error(`Failed to fetch ${resource}`);
@@ -52,7 +52,7 @@ export class AdminAPI {
     }
 
     static async create(resource: string, data: any) {
-        const res = await fetch(`${getApiBase()}/api/${resource}`, {
+        const res = await fetch(`${API_BASE}/api/${resource}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -63,7 +63,7 @@ export class AdminAPI {
     }
 
     static async update(resource: string, id: number, data: any) {
-        const res = await fetch(`${getApiBase()}/api/${resource}/${id}`, {
+        const res = await fetch(`${API_BASE}/api/${resource}/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
@@ -74,7 +74,7 @@ export class AdminAPI {
     }
 
     static async delete(resource: string, id: number) {
-        const res = await fetch(`${getApiBase()}/api/${resource}/${id}`, {
+        const res = await fetch(`${API_BASE}/api/${resource}/${id}`, {
             method: 'DELETE',
             credentials: 'include',
         });
@@ -87,7 +87,7 @@ export class AdminAPI {
         const formData = new FormData();
         formData.append('file', file);
 
-        const res = await fetch(`${getApiBase()}/api/${endpoint}`, {
+        const res = await fetch(`${API_BASE}/api/${endpoint}`, {
             method: 'POST',
             body: formData,
             credentials: 'include',
@@ -96,6 +96,7 @@ export class AdminAPI {
         return res.json();
     }
 }
+
 
 
 
