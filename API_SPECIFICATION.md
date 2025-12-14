@@ -316,6 +316,7 @@ GET /api/representative-works
   {
     "id": 1,
     "title": "High-Efficiency Metasurface",
+    "description": "Demonstration of high-efficiency metasurface for visible light applications.",
     "journal": "Nature Materials",
     "volume": "22",
     "pages": "100-110",
@@ -343,6 +344,7 @@ Authorization: Required (Session Cookie)
 ```json
 {
   "title": "Work Title",
+  "description": "Brief description of the work (shown on homepage hero section)",
   "journal": "Journal Name",
   "volume": "22",
   "pages": "100-110",

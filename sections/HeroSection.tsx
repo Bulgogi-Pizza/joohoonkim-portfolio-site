@@ -80,51 +80,62 @@ function HeroSection() {
     }, [representativeWorks.length]);
 
     return (
-        <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-brand-light dark:bg-gray-900 transition-colors">
-            {/* Background Elements */}
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-primary/5 to-transparent pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-brand-accent/5 rounded-full blur-3xl pointer-events-none" />
+        <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-white dark:bg-gray-950 transition-colors">
+            {/* Subtle Background Gradients - Professional & Natural */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] bg-blue-100/50 dark:bg-blue-900/20 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-purple-100/50 dark:bg-purple-900/20 rounded-full blur-[120px]" />
+            </div>
 
-            <div className="container mx-auto px-6 lg:px-12 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-
-                    {/* Left Content */}
+            <div className="container mx-auto px-6 lg:px-12 relative z-10 py-12">
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    {/* Left: Text Content - Huge & Impactful */}
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="space-y-6"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="space-y-10"
                     >
-                        <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight text-brand-dark dark:text-white">
-                            {heroContent.title} <br />
-                            <span className="text-brand-primary">
-                                {heroContent.title_highlight}
-                            </span>
-                        </h1>
-                        <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
-                            {heroContent.description}
-                        </p>
+                        <div className="space-y-4">
+                            <h1 className="text-6xl lg:text-8xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
+                                {heroContent.title}{' '}
+                                <span className="text-blue-600 dark:text-blue-500 inline-block">
+                                    {heroContent.title_highlight}
+                                </span>
+                            </h1>
+                            <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl font-light">
+                                {heroContent.description}
+                            </p>
+                        </div>
 
-                        <div className="flex gap-4 pt-4">
-                            <Link href={heroContent.cta_primary_link} className="px-8 py-3 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-primary/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2">
-                                {heroContent.cta_primary_text} <FiArrowRight />
+                        {/* Professional CTA Buttons */}
+                        <div className="flex flex-wrap gap-4">
+                            <Link
+                                href={heroContent.cta_primary_link}
+                                className="group px-8 py-4 bg-blue-600 text-white text-lg font-medium rounded-full hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-blue-500/30 flex items-center gap-2"
+                            >
+                                {heroContent.cta_primary_text}
+                                <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link href={heroContent.cta_secondary_link} className="px-8 py-3 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 rounded-lg hover:border-brand-primary hover:text-brand-primary dark:hover:text-brand-primary transition-colors bg-white dark:bg-gray-800">
+                            <Link
+                                href={heroContent.cta_secondary_link}
+                                className="px-8 py-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white text-lg font-medium rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
+                            >
                                 {heroContent.cta_secondary_text}
                             </Link>
                         </div>
                     </motion.div>
 
-                    {/* Right Content - Carousel */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="relative"
-                    >
-                        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-white dark:bg-gray-800 border border-slate-100 dark:border-gray-700">
-                            <AnimatePresence mode="wait">
-                                {representativeWorks.length > 0 && (
+                    {/* Right: Representative Work - Clean & Visual */}
+                    {representativeWorks.length > 0 && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            className="relative"
+                        >
+                            <div className="relative aspect-[4/3] lg:aspect-square max-h-[600px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 dark:border-gray-800">
+                                <AnimatePresence mode="wait">
                                     <motion.div
                                         key={currentIndex}
                                         initial={{ opacity: 0 }}
@@ -138,43 +149,63 @@ function HeroSection() {
                                             alt={representativeWorks[currentIndex].title}
                                             className="w-full h-full object-cover"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent" />
+                                        {/* Professional Gradient Overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                                        <div className="absolute bottom-0 left-0 p-8 text-white">
-                                            <h3 className="text-xl font-bold mb-2">{representativeWorks[currentIndex].title}</h3>
-                                            <p className="text-sm text-slate-200 line-clamp-2">{representativeWorks[currentIndex].description}</p>
+                                        {/* Content Overlay */}
+                                        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 text-white">
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <span className="px-3 py-1 text-xs font-bold tracking-wider uppercase bg-blue-600 text-white rounded-full">
+                                                    Featured Work
+                                                </span>
+                                                <div className="h-px flex-1 bg-white/30" />
+                                            </div>
+                                            <h3 className="text-2xl md:text-3xl font-bold mb-3 leading-tight">
+                                                {representativeWorks[currentIndex].title}
+                                            </h3>
+                                            <p className="text-gray-300 text-sm md:text-base line-clamp-2 max-w-lg">
+                                                {representativeWorks[currentIndex].description || 'Exploring the frontiers of nanophotonics.'}
+                                            </p>
                                         </div>
                                     </motion.div>
-                                )}
-                            </AnimatePresence>
+                                </AnimatePresence>
 
-                            {/* Controls */}
-                            <div className="absolute bottom-4 right-4 flex gap-2">
-                                <button onClick={prevSlide} className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-colors">
-                                    <FiChevronLeft />
-                                </button>
-                                <button onClick={() => setIsPlaying(!isPlaying)} className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-colors">
-                                    {isPlaying ? <FiPause /> : <FiPlay />}
-                                </button>
-                                <button onClick={nextSlide} className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm transition-colors">
-                                    <FiChevronRight />
-                                </button>
+                                {/* Navigation - Minimalist */}
+                                <div className="absolute bottom-8 right-8 flex gap-3 z-20">
+                                    <button
+                                        onClick={prevSlide}
+                                        className="p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white transition-all border border-white/10"
+                                        aria-label="Previous"
+                                    >
+                                        <FiChevronLeft size={20} />
+                                    </button>
+                                    <button
+                                        onClick={nextSlide}
+                                        className="p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white transition-all border border-white/10"
+                                        aria-label="Next"
+                                    >
+                                        <FiChevronRight size={20} />
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Indicators */}
-                        <div className="flex justify-center gap-2 mt-6">
-                            {representativeWorks.map((_, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setCurrentIndex(idx)}
-                                    className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-8 bg-brand-primary' : 'w-2 bg-slate-300 dark:bg-gray-600'
+                            {/* Indicators */}
+                            <div className="flex justify-center gap-2 mt-6">
+                                {representativeWorks.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setCurrentIndex(idx)}
+                                        className={`h-2 rounded-full transition-all duration-300 ${
+                                            idx === currentIndex 
+                                                ? 'w-12 bg-gradient-to-r from-blue-600 to-blue-400' 
+                                                : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-blue-400'
                                         }`}
-                                />
-                            ))}
-                        </div>
-                    </motion.div>
-
+                                        aria-label={`View work ${idx + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        </motion.div>
+                    )}
                 </div>
             </div>
         </section>
