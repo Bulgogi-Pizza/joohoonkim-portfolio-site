@@ -1145,6 +1145,8 @@ Or with CloudFront CDN:
 
 ## CORS Configuration
 
+**CRITICAL: Cookie-based authentication requires proper CORS setup**
+
 Frontend domains that need access:
 - `https://dev.d1jx5u7u0ebuxt.amplifyapp.com` (dev)
 - `https://joohoonkim.site` (production)
@@ -1152,10 +1154,37 @@ Frontend domains that need access:
 
 Required CORS headers:
 ```
-Access-Control-Allow-Origin: <frontend-domain>
+Access-Control-Allow-Origin: <frontend-domain> (NOT wildcard *)
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Headers: Content-Type
-Access-Control-Allow-Credentials: true
+Access-Control-Allow-Credentials: true (REQUIRED for cookies)
+```
+
+**Important Notes:**
+1. **`Access-Control-Allow-Credentials: true` is MANDATORY** for cookie-based session authentication
+2. When using credentials, `Access-Control-Allow-Origin` **CANNOT be `*`** - must be specific domain
+3. Backend must respond to OPTIONS preflight requests
+4. Session cookies should have:
+   - `SameSite=None` (for cross-domain, production)
+   - `Secure=true` (HTTPS only, production)
+   - `HttpOnly=true` (prevent XSS)
+   - `Path=/`
+
+**Example Backend CORS Setup (Python/FastAPI):**
+```python
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://dev.d1jx5u7u0ebuxt.amplifyapp.com",
+        "https://joohoonkim.site",
+        "http://localhost:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 ```
 
 ---
