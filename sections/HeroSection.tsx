@@ -44,9 +44,19 @@ function HeroSection() {
     useEffect(() => {
         // Fetch representative works
         fetch('/api/representative-works')
-            .then(res => res.json())
-            .then(data => setRepresentativeWorks(data))
-            .catch(err => console.error(err));
+            .then(res => {
+                console.log('Representative works response status:', res.status);
+                return res.json();
+            })
+            .then(data => {
+                console.log('Representative works data:', data);
+                if (Array.isArray(data) && data.length > 0) {
+                    setRepresentativeWorks(data);
+                } else {
+                    console.warn('No representative works found or invalid data format');
+                }
+            })
+            .catch(err => console.error('Failed to fetch representative works:', err));
 
         // Fetch hero content
         fetch('/api/hero')
@@ -56,7 +66,7 @@ function HeroSection() {
                     setHeroContent(data);
                 }
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error('Failed to fetch hero content:', err));
     }, []);
 
     useEffect(() => {

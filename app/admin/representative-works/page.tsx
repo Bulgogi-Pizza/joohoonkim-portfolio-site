@@ -108,7 +108,7 @@ export default function RepresentativeWorksAdmin() {
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{item.order_index}</td>
                                 <td className="px-6 py-4">
                                     {item.image_path && (
-                                        <img src={item.image_path} alt={item.title} className="h-12 w-20 object-cover rounded" />
+                                        <img src={getImageUrl(item.image_path)} alt={item.title} className="h-12 w-20 object-cover rounded" />
                                     )}
                                 </td>
                                 <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">{item.title}</td>

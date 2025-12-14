@@ -308,6 +308,8 @@ file: <image file>
 ### 4.1 List Representative Works
 ```http
 GET /api/representative-works
+Query Parameters:
+  - all: true (optional, for admin to include inactive items)
 ```
 
 **Response (200 OK):**
@@ -520,6 +522,8 @@ file: <image file>
 ### 6.1 List Research Areas
 ```http
 GET /api/research-areas
+Query Parameters:
+  - all: true (optional, for admin to include inactive items)
 ```
 
 **Response (200 OK):**
