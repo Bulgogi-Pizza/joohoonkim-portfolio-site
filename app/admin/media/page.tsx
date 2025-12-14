@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AdminAPI } from '@/lib/adminApi';
+import { getImageUrl } from '@/lib/imageUtils';
 
 interface Media {
     id?: number;

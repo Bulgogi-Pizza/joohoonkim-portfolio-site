@@ -1,17 +1,9 @@
 // Admin API utilities for authentication and CRUD operations
 
-// Use relative path in browser to leverage Next.js rewrites and avoid CORS issues
-// In browser: /api/* -> Next.js rewrites to backend
-// In server/build: use full URL
-const getApiBase = () => {
-    // Check if we're in the browser
-    if (typeof window !== 'undefined') {
-        return ''; // Use relative path in browser for Next.js rewrites
-    }
-    // On server side or build time, use the full API URL
-    // NEXT_PUBLIC_ prefix makes it available in client-side code after build
-    return process.env.NEXT_PUBLIC_API_URL || 'https://api.joohoonkim.site';
-};
+// Always use relative path to leverage Next.js rewrites
+// Next.js rewrites /api/* to the backend API based on next.config.js
+// This works in both browser and server contexts
+const API_BASE = '';
 
 export class AdminAPI {
     // Authentication
@@ -96,6 +88,7 @@ export class AdminAPI {
         return res.json();
     }
 }
+
 
 
 
