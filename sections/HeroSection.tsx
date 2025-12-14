@@ -12,15 +12,49 @@ interface Work {
     image_path: string;
 }
 
+interface HeroContent {
+    id: number;
+    title: string;
+    title_highlight: string;
+    description: string;
+    cta_primary_text: string;
+    cta_primary_link: string;
+    cta_secondary_text: string;
+    cta_secondary_link: string;
+}
+
+const defaultHeroContent: HeroContent = {
+    id: 0,
+    title: 'Innovating',
+    title_highlight: 'Nanophotonics',
+    description: 'Ph.D. student at POSTECH, specializing in nanofabrication and metasurfaces for next-gen optical applications like VR/AR and optical computing.',
+    cta_primary_text: 'Explore Research',
+    cta_primary_link: '/research',
+    cta_secondary_text: 'View CV',
+    cta_secondary_link: '/cv'
+};
+
 function HeroSection() {
     const [representativeWorks, setRepresentativeWorks] = useState<Work[]>([]);
+    const [heroContent, setHeroContent] = useState<HeroContent>(defaultHeroContent);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
 
     useEffect(() => {
+        // Fetch representative works
         fetch('/api/representative-works')
             .then(res => res.json())
             .then(data => setRepresentativeWorks(data))
+            .catch(err => console.error(err));
+
+        // Fetch hero content
+        fetch('/api/hero')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.title) {
+                    setHeroContent(data);
+                }
+            })
             .catch(err => console.error(err));
     }, []);
 
@@ -61,21 +95,21 @@ function HeroSection() {
                         className="space-y-6"
                     >
                         <h1 className="text-4xl md:text-6xl font-heading font-bold leading-tight text-brand-dark dark:text-white">
-                            Innovating <br />
+                            {heroContent.title} <br />
                             <span className="text-brand-primary">
-                                Nanophotonics
+                                {heroContent.title_highlight}
                             </span>
                         </h1>
                         <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
-                            Ph.D. student at POSTECH, specializing in nanofabrication and metasurfaces for next-gen optical applications like VR/AR and optical computing.
+                            {heroContent.description}
                         </p>
 
                         <div className="flex gap-4 pt-4">
-                            <Link href="/research" className="px-8 py-3 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-primary/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2">
-                                Explore Research <FiArrowRight />
+                            <Link href={heroContent.cta_primary_link} className="px-8 py-3 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-primary/90 transition-all shadow-lg shadow-brand-primary/20 flex items-center gap-2">
+                                {heroContent.cta_primary_text} <FiArrowRight />
                             </Link>
-                            <Link href="/cv" className="px-8 py-3 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 rounded-lg hover:border-brand-primary hover:text-brand-primary dark:hover:text-brand-primary transition-colors bg-white dark:bg-gray-800">
-                                View CV
+                            <Link href={heroContent.cta_secondary_link} className="px-8 py-3 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 rounded-lg hover:border-brand-primary hover:text-brand-primary dark:hover:text-brand-primary transition-colors bg-white dark:bg-gray-800">
+                                {heroContent.cta_secondary_text}
                             </Link>
                         </div>
                     </motion.div>

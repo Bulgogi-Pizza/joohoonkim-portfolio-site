@@ -100,16 +100,60 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
                                 <div className="w-12 sm:w-16 h-1 bg-blue-600 mx-auto" />
                             </div>
 
-                            <div className="prose prose-base sm:prose-lg md:prose-xl dark:prose-invert max-w-none text-left">
+                            <div className="prose prose-lg dark:prose-invert max-w-none 
+                                prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
+                                prose-h1:text-4xl prose-h1:mb-4 prose-h1:mt-8
+                                prose-h2:text-3xl prose-h2:mb-3 prose-h2:mt-6
+                                prose-h3:text-2xl prose-h3:mb-2 prose-h3:mt-5
+                                prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+                                prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:underline
+                                prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4
+                                prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4
+                                prose-li:mb-2
+                                prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+                                prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
+                                prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:pl-4 prose-blockquote:italic
+                                prose-img:rounded-lg prose-img:shadow-md
+                                text-left"
+                            >
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
                                     components={{
                                         img: ({ node, ...props }) => (
-                                            <img {...props} className="mx-auto my-4 sm:my-6 rounded shadow max-h-64 sm:max-h-96" loading="lazy" />
+                                            <img {...props} className="mx-auto my-6 rounded-lg shadow-lg max-h-96 w-auto" loading="lazy" />
                                         ),
                                         a: ({ node, ...props }) => (
-                                            <a {...props} className="text-blue-600 underline break-words" target="_blank" rel="noopener noreferrer" />
-                                        )
+                                            <a {...props} className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline break-words" target="_blank" rel="noopener noreferrer" />
+                                        ),
+                                        h1: ({ node, ...props }) => (
+                                            <h1 {...props} className="text-4xl font-bold text-gray-900 dark:text-white mb-4 mt-8" />
+                                        ),
+                                        h2: ({ node, ...props }) => (
+                                            <h2 {...props} className="text-3xl font-bold text-gray-900 dark:text-white mb-3 mt-6" />
+                                        ),
+                                        h3: ({ node, ...props }) => (
+                                            <h3 {...props} className="text-2xl font-bold text-gray-900 dark:text-white mb-2 mt-5" />
+                                        ),
+                                        p: ({ node, ...props }) => (
+                                            <p {...props} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4" />
+                                        ),
+                                        ul: ({ node, ...props }) => (
+                                            <ul {...props} className="list-disc ml-6 mb-4 space-y-2" />
+                                        ),
+                                        ol: ({ node, ...props }) => (
+                                            <ol {...props} className="list-decimal ml-6 mb-4 space-y-2" />
+                                        ),
+                                        li: ({ node, ...props }) => (
+                                            <li {...props} className="text-gray-700 dark:text-gray-300" />
+                                        ),
+                                        code: ({ node, inline, ...props }: any) => (
+                                            inline ?
+                                                <code {...props} className="bg-gray-100 dark:bg-gray-800 text-red-600 dark:text-red-400 px-1.5 py-0.5 rounded text-sm font-mono" /> :
+                                                <code {...props} className="block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4 rounded-lg overflow-x-auto font-mono text-sm" />
+                                        ),
+                                        blockquote: ({ node, ...props }) => (
+                                            <blockquote {...props} className="border-l-4 border-blue-600 pl-4 italic text-gray-600 dark:text-gray-400 my-4" />
+                                        ),
                                     }}
                                 >
                                     {activeArea.description || ""}
