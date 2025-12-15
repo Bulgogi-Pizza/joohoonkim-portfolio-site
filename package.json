@@ -10,15 +10,18 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.5.5",
+    "autoprefixer": "^10.4.22",
     "aws-amplify": "^6.6.6",
     "framer-motion": "^12.23.24",
     "next": "14.2.10",
+    "postcss": "^8.5.6",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.5.1",
@@ -26,13 +29,10 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "^10.4.22",
     "aws-cdk": "^2",
     "aws-cdk-lib": "^2",
     "constructs": "^10.3.0",
     "esbuild": "^0.23.1",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17",
     "tsx": "^4.19.0",
     "typescript": "^5.6.2"
   }

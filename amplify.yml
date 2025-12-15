@@ -16,6 +16,7 @@ frontend:
           fi
         - echo "API_URL=$API_URL"
         - echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
+        - npm ci --include=dev
     build:
       commands:
         - npm run build
