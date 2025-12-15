@@ -1,12 +1,21 @@
 version: 1
-backend:
-  phases:
-    build:
-      commands:
-        - npm ci --cache .npm --prefer-offline
-        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
   phases:
+    preBuild:
+      commands:
+        - echo "Setting up environment variables..."
+        - |
+          if [ -z "$API_URL" ]; then
+            export API_URL="https://api.joohoonkim.site"
+            echo "Set API_URL to default: $API_URL"
+          fi
+        - |
+          if [ -z "$NEXT_PUBLIC_API_URL" ]; then
+            export NEXT_PUBLIC_API_URL="https://api.joohoonkim.site"
+            echo "Set NEXT_PUBLIC_API_URL to default: $NEXT_PUBLIC_API_URL"
+          fi
+        - echo "API_URL=$API_URL"
+        - echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
     build:
       commands:
         - npm run build

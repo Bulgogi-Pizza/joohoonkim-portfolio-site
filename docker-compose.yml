@@ -1,0 +1,8 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=https://api.joohoonkim.site
+      - NEXT_PUBLIC_API_URL=https://api.joohoonkim.site
