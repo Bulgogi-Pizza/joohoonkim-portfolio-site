@@ -62,7 +62,7 @@ export default function ResearchSection() {
                             </h3>
 
                             <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3">
-                                {area.description.replace(/##/g, '').replace(/\*\*/g, '')}
+                                {area.description.replace(/!\[.*?\]\(.*?\)/g, '').replace(/##/g, '').replace(/\*\*/g, '')}
                             </p>
 
                             <Link

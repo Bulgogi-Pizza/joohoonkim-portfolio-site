@@ -6,7 +6,7 @@ import Link from 'next/link';
 const cvData = {
     profile: {
         name: "Joohoon Kim",
-        title: "Ph.D Candidate, Mechanical Engineering, Pohang University of Science and Technology (POSTECH)",
+        title: "Postdoctoral Researcher, POSTECH Institute of Artificial Intelligence (PIAI), Pohang University of Science and Technology (POSTECH)",
         email: "kimjuhoon@postech.ac.kr",
         phone: "+82-54-279-6806",
         office: "R1259 RIST Building I",
@@ -28,7 +28,7 @@ const cvData = {
             university: "POSTECH",
             country: "Korea",
             from: "2021",
-            to: "2026, expected",
+            to: "2026",
         },
         {
             degree: "B.S. in Mechanical Engineering",
@@ -43,7 +43,7 @@ const cvData = {
             role: "Postdoctoral Researcher",
             institution: "PIAI",
             location: "Korea",
-            period: "2026 – 2027, expected",
+            period: "2026 – 2027",
             description: "In substitution of a mandatory military service"
         },
         {
@@ -97,6 +97,11 @@ const cvData = {
         }
     ],
     awards: [
+        {
+            name: "World Top 2% Scientists",
+            details: "Stanford University/Elsevier",
+            year: "2025"
+        },
         {
             name: "Editage Grant",
             details: "2nd place",
@@ -244,7 +249,7 @@ const cvData = {
         },
         {
             title: "**Journal Reviewer**",
-            description: "Regular reviewer for Nature Communications, Light: Science & Applications, Microsystems & Nanoengineering, Optica, ACS Photonics, Nanophotonics, Communications Physics, Scientific Reports, Optics Express, Optics Letters, Optics and Laser Technology, Nanomaterials, Displays"
+            description: "Regular reviewer for Nature Communications, Light: Science & Applications, Microsystems & Nanoengineering, Laser & Photonics Reviews, ACS Photonics, Optica, Nanophotonics, Communications Physics, npj Nanophotonics, Scientific Reports, Optics Express, Optics Letters, Optics and Laser Technology, Nanomaterials, Displays."
         }
     ]
 };
@@ -399,7 +404,7 @@ export default function CVPage() {
                         </ul>
                     </CVSection>
 
-                    <CVSection title="Selected Publications" link="/publications">
+                    <CVSection title="Recent Publications" link="/publications">
                         <ul className="space-y-3">
                             {cvData.publications.map((pub, i) => <PublicationItem key={i} pub={pub} />)}
                         </ul>

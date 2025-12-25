@@ -41,7 +41,7 @@ function Navbar() {
         { name: 'CV', to: '/cv' },
         { name: 'Publications', to: '/publications' },
         { name: 'Awards', to: '/awards' },
-        { name: 'Conferences', to: '/conferences' },
+        { name: 'Talks', to: '/conferences' },
     ];
 
     const navClasses = `fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
@@ -73,7 +73,7 @@ function Navbar() {
                                 <Link
                                     href={item.to}
                                     className={`
-                          flex items-center gap-1 text-sm font-medium transition-all duration-300 relative
+                          flex items-center gap-1 text-base font-medium transition-all duration-300 relative
                           ${pathname === item.to ? 'text-brand-primary' : 'text-slate-600 dark:text-slate-300 hover:text-brand-dark dark:hover:text-white'}
 after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px]
 after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-full

@@ -114,13 +114,13 @@ export default function ConferencesPage() {
 
                 {/* Header */}
                 <div className="mb-8 text-center">
-                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">Conferences</h1>
+                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">Talks</h1>
                 </div>
 
                 {/* Total Count */}
                 <div className="mb-6">
                     <p className="text-gray-600 dark:text-gray-400">
-                        Total {filteredConferences.length} conferences
+                        Total {filteredConferences.length} talks
                     </p>
                 </div>
 
