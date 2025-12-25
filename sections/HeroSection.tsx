@@ -107,13 +107,13 @@ function HeroSection() {
                         className="space-y-10 order-2 md:order-1"
                     >
                         <div className="space-y-4">
-                            <h1 className="text-6xl lg:text-8xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
+                            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-[1.1]">
                                 {heroContent.title}{' '}
                                 <span className="text-blue-600 dark:text-blue-500 inline-block">
                                     {heroContent.title_highlight}
                                 </span>
                             </h1>
-                            <p className="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl font-light">
+                            <p className="text-xl lg:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl font-light">
                                 {heroContent.description}
                             </p>
                         </div>
@@ -170,7 +170,7 @@ function HeroSection() {
                                                 </span>
                                                 <div className="h-px flex-1 bg-white/30" />
                                             </div>
-                                            <h3 className="text-2xl md:text-3xl font-bold mb-3 leading-tight">
+                                            <h3 className="text-xl md:text-2xl font-bold mb-3 leading-tight">
                                                 {representativeWorks[currentIndex].title}
                                             </h3>
                                             <p className="text-gray-300 text-sm md:text-base line-clamp-2 max-w-lg">
@@ -205,11 +205,10 @@ function HeroSection() {
                                     <button
                                         key={idx}
                                         onClick={() => setCurrentIndex(idx)}
-                                        className={`h-2 rounded-full transition-all duration-300 ${
-                                            idx === currentIndex 
-                                                ? 'w-12 bg-gradient-to-r from-blue-600 to-blue-400' 
+                                        className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex
+                                                ? 'w-12 bg-gradient-to-r from-blue-600 to-blue-400'
                                                 : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-blue-400'
-                                        }`}
+                                            }`}
                                         aria-label={`View work ${idx + 1}`}
                                     />
                                 ))}
