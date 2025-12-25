@@ -24,20 +24,20 @@ interface HeroContent {
     cta_secondary_link: string;
 }
 
-const defaultHeroContent: HeroContent = {
-    id: 0,
-    title: 'Innovating',
-    title_highlight: 'Nanophotonics',
-    description: 'Ph.D. student at POSTECH, specializing in nanofabrication and metasurfaces for next-gen optical applications like VR/AR and optical computing.',
-    cta_primary_text: 'Explore Research',
-    cta_primary_link: '/research',
-    cta_secondary_text: 'View CV',
-    cta_secondary_link: '/cv'
-};
+
 
 function HeroSection() {
     const [representativeWorks, setRepresentativeWorks] = useState<Work[]>([]);
-    const [heroContent, setHeroContent] = useState<HeroContent>(defaultHeroContent);
+    const [heroContent, setHeroContent] = useState<HeroContent>({
+        id: 0,
+        title: '',
+        title_highlight: '',
+        description: '',
+        cta_primary_text: '',
+        cta_primary_link: '',
+        cta_secondary_text: '',
+        cta_secondary_link: ''
+    });
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
 
@@ -206,8 +206,8 @@ function HeroSection() {
                                         key={idx}
                                         onClick={() => setCurrentIndex(idx)}
                                         className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex
-                                                ? 'w-12 bg-gradient-to-r from-blue-600 to-blue-400'
-                                                : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-blue-400'
+                                            ? 'w-12 bg-gradient-to-r from-blue-600 to-blue-400'
+                                            : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-blue-400'
                                             }`}
                                         aria-label={`View work ${idx + 1}`}
                                     />
