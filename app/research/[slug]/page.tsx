@@ -92,7 +92,7 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
                 </div>
 
                 {/* Content */}
-                <div className="max-w-5xl mx-auto">
+                <div className="max-w-7xl mx-auto">
                     <div className="bg-white dark:bg-gray-800 shadow-sm">
                         <div className="px-5 sm:px-12 py-10 sm:py-16">
                             <div className="text-center mb-8 sm:mb-12">
@@ -100,16 +100,16 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
                                 <div className="w-12 sm:w-16 h-1 bg-blue-600 mx-auto" />
                             </div>
 
-                            <div className="prose prose-lg dark:prose-invert max-w-none 
+                            <div className="prose prose-xl dark:prose-invert max-w-none 
                                 prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
-                                prose-h1:text-4xl prose-h1:mb-4 prose-h1:mt-8
-                                prose-h2:text-3xl prose-h2:mb-3 prose-h2:mt-6
-                                prose-h3:text-2xl prose-h3:mb-2 prose-h3:mt-5
-                                prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+                                prose-h1:text-5xl prose-h1:mb-6 prose-h1:mt-10
+                                prose-h2:text-4xl prose-h2:mb-5 prose-h2:mt-8
+                                prose-h3:text-3xl prose-h3:mb-4 prose-h3:mt-6
+                                prose-p:text-lg prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
                                 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:underline
-                                prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4
-                                prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4
-                                prose-li:mb-2
+                                prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-6
+                                prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-6
+                                prose-li:text-lg prose-li:mb-2
                                 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
                                 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
                                 prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:pl-4 prose-blockquote:italic
@@ -126,25 +126,25 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
                                             <a {...props} className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline break-words" target="_blank" rel="noopener noreferrer" />
                                         ),
                                         h1: ({ node, ...props }) => (
-                                            <h1 {...props} className="text-4xl font-bold text-gray-900 dark:text-white mb-4 mt-8" />
+                                            <h1 {...props} className="text-5xl font-bold text-gray-900 dark:text-white mb-6 mt-10" />
                                         ),
                                         h2: ({ node, ...props }) => (
-                                            <h2 {...props} className="text-3xl font-bold text-gray-900 dark:text-white mb-3 mt-6" />
+                                            <h2 {...props} className="text-4xl font-bold text-gray-900 dark:text-white mb-5 mt-8" />
                                         ),
                                         h3: ({ node, ...props }) => (
-                                            <h3 {...props} className="text-2xl font-bold text-gray-900 dark:text-white mb-2 mt-5" />
+                                            <h3 {...props} className="text-3xl font-bold text-gray-900 dark:text-white mb-4 mt-6" />
                                         ),
                                         p: ({ node, ...props }) => (
-                                            <p {...props} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4" />
+                                            <p {...props} className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6" />
                                         ),
                                         ul: ({ node, ...props }) => (
-                                            <ul {...props} className="list-disc ml-6 mb-4 space-y-2" />
+                                            <ul {...props} className="list-disc ml-6 mb-6 space-y-2" />
                                         ),
                                         ol: ({ node, ...props }) => (
-                                            <ol {...props} className="list-decimal ml-6 mb-4 space-y-2" />
+                                            <ol {...props} className="list-decimal ml-6 mb-6 space-y-2" />
                                         ),
                                         li: ({ node, ...props }) => (
-                                            <li {...props} className="text-gray-700 dark:text-gray-300" />
+                                            <li {...props} className="text-lg text-gray-700 dark:text-gray-300" />
                                         ),
                                         code: ({ node, inline, ...props }: any) => (
                                             inline ?
