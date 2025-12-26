@@ -404,7 +404,7 @@ export default function CVPage() {
                         </ul>
                     </CVSection>
 
-                    <CVSection title="Recent Publications" link="/publications">
+                    <CVSection title="Selected Publications" link="/publications">
                         <ul className="space-y-3">
                             {cvData.publications.map((pub, i) => <PublicationItem key={i} pub={pub} />)}
                         </ul>

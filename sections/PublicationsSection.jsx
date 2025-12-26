@@ -23,7 +23,7 @@ function PublicationsSection() {
         >
           <div>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-brand-dark mb-4">
-              Selected Publications
+              Recent Publications
             </h2>
             <div className="w-20 h-1 bg-brand-primary rounded-full" />
           </div>
