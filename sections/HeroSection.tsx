@@ -9,7 +9,11 @@ import { getImageUrl } from '@/lib/imageUtils';
 interface Work {
     id: number;
     title: string;
-    description: string;
+    journal: string;
+    volume?: string;
+    pages?: string;
+    year?: string;
+    description?: string;
     image_path: string;
 }
 
@@ -173,9 +177,12 @@ function HeroSection() {
                                             <h3 className="text-xl md:text-2xl font-bold mb-3 leading-tight">
                                                 {representativeWorks[currentIndex].title}
                                             </h3>
-                                            <p className="text-gray-300 text-sm md:text-base line-clamp-2 max-w-lg">
-                                                {representativeWorks[currentIndex].description || 'Exploring the frontiers of nanophotonics.'}
-                                            </p>
+                                            <div className="text-gray-300 text-sm md:text-base max-w-lg mt-2">
+                                                <span className="font-bold italic">{representativeWorks[currentIndex].journal}</span>
+                                                {representativeWorks[currentIndex].volume && <span className="font-bold"> {representativeWorks[currentIndex].volume}</span>}
+                                                {representativeWorks[currentIndex].pages && <span>, {representativeWorks[currentIndex].pages}</span>}
+                                                {representativeWorks[currentIndex].year && <span> ({representativeWorks[currentIndex].year})</span>}
+                                            </div>
                                         </div>
                                     </motion.div>
                                 </AnimatePresence>

@@ -5,8 +5,17 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FiLayers, FiCpu, FiActivity, FiArrowRight } from 'react-icons/fi';
 
+import { getImageUrl } from '@/lib/imageUtils';
+
+interface ResearchArea {
+    slug: string;
+    title: string;
+    description: string;
+    icon_path?: string;
+}
+
 export default function ResearchSection() {
-    const [researchAreas, setResearchAreas] = useState<any[]>([]);
+    const [researchAreas, setResearchAreas] = useState<ResearchArea[]>([]);
 
     useEffect(() => {
         fetch('/api/research-areas')
@@ -36,9 +45,6 @@ export default function ResearchSection() {
                         Research Areas
                     </h2>
                     <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
-                    <p className="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        Exploring the frontiers of nanophotonics through advanced fabrication and design.
-                    </p>
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -54,7 +60,15 @@ export default function ResearchSection() {
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
 
                             <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl inline-block text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                                {getIcon(area.slug)}
+                                {area.icon_path ? (
+                                    <img
+                                        src={getImageUrl(area.icon_path)}
+                                        alt={area.title}
+                                        className="w-8 h-8 object-contain"
+                                    />
+                                ) : (
+                                    getIcon(area.slug)
+                                )}
                             </div>
 
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
