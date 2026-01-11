@@ -70,9 +70,22 @@ export default function CoverArtsSection() {
             // Update scroll position
             scrollPosDiff.current += currentSpeed.current;
 
-            // Loop logic: The CSS version went to -50% (translateX). 
-            // We need to reset when we've scrolled half the total width.
-            const maxScroll = container.scrollWidth / 2;
+            // Loop logic:
+            // Calculate the width of one single set of items to know when to wrap.
+            // We use the offset difference between the first item of the first set
+            // and the first item of the second set (index = coverArts.length).
+            // This accounts for variable widths and gaps (responsive).
+            const N = coverArts.length;
+            let maxScroll = 0;
+
+            if (container.children.length >= N * 2) {
+                const firstItem = container.children[0] as HTMLElement;
+                const secondSetFirstItem = container.children[N] as HTMLElement;
+                maxScroll = secondSetFirstItem.offsetLeft - firstItem.offsetLeft;
+            } else {
+                // Fallback (should typically not happen if rendered correctly)
+                maxScroll = container.scrollWidth / 3;
+            }
 
             if (scrollPosDiff.current >= maxScroll) {
                 scrollPosDiff.current -= maxScroll;
