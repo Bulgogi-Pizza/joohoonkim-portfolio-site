@@ -7,8 +7,19 @@ import { useRouter } from 'next/navigation';
 
 const isExternal = (href: string) => /^https?:\/\//i.test(href);
 
+import { FiExternalLink } from 'react-icons/fi'; // Add import
+
+interface CoverArt {
+    id: number;
+    title: string;
+    image_path: string;
+    link?: string;
+    journal: string;
+    year?: string;
+}
+
 export default function CoverArtsSection() {
-    const [coverArts, setCoverArts] = useState<any[]>([]);
+    const [coverArts, setCoverArts] = useState<CoverArt[]>([]); // Update state type
     const router = useRouter();
 
     const openLink = useCallback((href?: string) => {
@@ -63,10 +74,14 @@ export default function CoverArtsSection() {
                                     alt={art.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
-                                    <div>
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+                                    <div className="flex flex-col items-center">
                                         <h3 className="text-white font-bold text-lg mb-2">{art.title}</h3>
-                                        <p className="text-indigo-400 text-sm">{art.journal} {art.year}</p>
+                                        {art.link && (
+                                            <div className="bg-indigo-600 text-white p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                                <FiExternalLink size={20} />
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +99,10 @@ export default function CoverArtsSection() {
           100% { transform: translateX(-50%); }
         }
         .animate-scroll {
-          animation: scroll 40s linear infinite;
+          animation: scroll 60s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
         }
       `}</style>
         </section>

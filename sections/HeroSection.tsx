@@ -9,7 +9,11 @@ import { getImageUrl } from '@/lib/imageUtils';
 interface Work {
     id: number;
     title: string;
-    description: string;
+    journal: string;
+    volume?: string;
+    pages?: string;
+    year?: string;
+    description?: string;
     image_path: string;
 }
 
@@ -24,20 +28,20 @@ interface HeroContent {
     cta_secondary_link: string;
 }
 
-const defaultHeroContent: HeroContent = {
-    id: 0,
-    title: 'Innovating',
-    title_highlight: 'Nanophotonics',
-    description: 'Ph.D. student at POSTECH, specializing in nanofabrication and metasurfaces for next-gen optical applications like VR/AR and optical computing.',
-    cta_primary_text: 'Explore Research',
-    cta_primary_link: '/research',
-    cta_secondary_text: 'View CV',
-    cta_secondary_link: '/cv'
-};
+
 
 function HeroSection() {
     const [representativeWorks, setRepresentativeWorks] = useState<Work[]>([]);
-    const [heroContent, setHeroContent] = useState<HeroContent>(defaultHeroContent);
+    const [heroContent, setHeroContent] = useState<HeroContent>({
+        id: 0,
+        title: '',
+        title_highlight: '',
+        description: '',
+        cta_primary_text: '',
+        cta_primary_link: '',
+        cta_secondary_text: '',
+        cta_secondary_link: ''
+    });
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
 
@@ -173,9 +177,12 @@ function HeroSection() {
                                             <h3 className="text-xl md:text-2xl font-bold mb-3 leading-tight">
                                                 {representativeWorks[currentIndex].title}
                                             </h3>
-                                            <p className="text-gray-300 text-sm md:text-base line-clamp-2 max-w-lg">
-                                                {representativeWorks[currentIndex].description || 'Exploring the frontiers of nanophotonics.'}
-                                            </p>
+                                            <div className="text-gray-300 text-sm md:text-base max-w-lg mt-2">
+                                                <span className="font-bold italic">{representativeWorks[currentIndex].journal}</span>
+                                                {representativeWorks[currentIndex].volume && <span className="font-bold"> {representativeWorks[currentIndex].volume}</span>}
+                                                {representativeWorks[currentIndex].pages && <span>, {representativeWorks[currentIndex].pages}</span>}
+                                                {representativeWorks[currentIndex].year && <span> ({representativeWorks[currentIndex].year})</span>}
+                                            </div>
                                         </div>
                                     </motion.div>
                                 </AnimatePresence>
@@ -206,8 +213,8 @@ function HeroSection() {
                                         key={idx}
                                         onClick={() => setCurrentIndex(idx)}
                                         className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex
-                                                ? 'w-12 bg-gradient-to-r from-blue-600 to-blue-400'
-                                                : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-blue-400'
+                                            ? 'w-12 bg-gradient-to-r from-blue-600 to-blue-400'
+                                            : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-blue-400'
                                             }`}
                                         aria-label={`View work ${idx + 1}`}
                                     />

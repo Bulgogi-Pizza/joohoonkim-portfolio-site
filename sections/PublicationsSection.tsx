@@ -45,7 +45,7 @@ export default function PublicationsSection() {
                 >
                     <div>
                         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                            Selected Publications
+                            Recent Publications
                         </h2>
                         <div className="w-20 h-1 bg-blue-600 rounded-full" />
                     </div>
