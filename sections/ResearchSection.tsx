@@ -59,12 +59,12 @@ export default function ResearchSection() {
                         >
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
 
-                            <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl inline-block text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                            <div className="mb-6 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-xl inline-block text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
                                 {area.icon_path ? (
                                     <img
                                         src={getImageUrl(area.icon_path)}
                                         alt={area.title}
-                                        className="w-8 h-8 object-contain"
+                                        className="w-9 h-9 object-contain mix-blend-multiply dark:mix-blend-screen dark:invert group-hover:mix-blend-screen group-hover:invert"
                                     />
                                 ) : (
                                     getIcon(area.slug)
