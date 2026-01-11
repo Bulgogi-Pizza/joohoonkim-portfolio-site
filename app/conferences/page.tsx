@@ -190,7 +190,7 @@ export default function ConferencesPage() {
                 {sortedConferences.length === 0 && (
                     <div className="text-center py-12">
                         <p className="text-gray-500 dark:text-gray-400 text-lg">
-                            No conferences found matching your criteria.
+                            No talks found matching your criteria.
                         </p>
                     </div>
                 )}

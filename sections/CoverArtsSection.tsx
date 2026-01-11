@@ -38,6 +38,60 @@ export default function CoverArtsSection() {
             .catch(err => console.error(err));
     }, []);
 
+    // Infinite scroll logic with smooth pause
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const [isHovering, setIsHovering] = useState(false);
+
+    // Animation refs
+    const scrollPosDiff = React.useRef(0); // Current scroll position
+    const currentSpeed = React.useRef(0.5); // Current scroll speed (pixels per frame)
+    const reqId = React.useRef<number>();
+
+    // Configuration
+    const BASE_SPEED = 1.7; // Normal speed
+    const DAMPING = 0.05; // Smoothing factor (0.05 = gradual, 1 = instant)
+
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container || coverArts.length === 0) return;
+
+        const animate = () => {
+            // Determine target speed based on hover state
+            const targetSpeed = isHovering ? 0 : BASE_SPEED;
+
+            // Smoothly interpolate current speed towards target speed
+            currentSpeed.current += (targetSpeed - currentSpeed.current) * DAMPING;
+
+            // Stop animation calculation if effectively stopped
+            if (Math.abs(currentSpeed.current) < 0.001 && isHovering) {
+                currentSpeed.current = 0;
+            }
+
+            // Update scroll position
+            scrollPosDiff.current += currentSpeed.current;
+
+            // Loop logic: The CSS version went to -50% (translateX). 
+            // We need to reset when we've scrolled half the total width.
+            const maxScroll = container.scrollWidth / 2;
+
+            if (scrollPosDiff.current >= maxScroll) {
+                scrollPosDiff.current -= maxScroll;
+            }
+
+            // Apply transform
+            container.style.transform = `translateX(-${scrollPosDiff.current}px)`;
+
+            reqId.current = requestAnimationFrame(animate);
+        };
+
+        // Start animation
+        reqId.current = requestAnimationFrame(animate);
+
+        return () => {
+            if (reqId.current) cancelAnimationFrame(reqId.current);
+        };
+    }, [coverArts, isHovering]);
+
     if (coverArts.length === 0) return null;
 
     return (
@@ -58,13 +112,18 @@ export default function CoverArtsSection() {
 
             {/* Infinite Scroll Container */}
             <div className="relative w-full">
-                <div className="flex gap-4 md:gap-8 animate-scroll hover:pause px-4 w-max">
+                <div
+                    ref={containerRef}
+                    className="flex gap-4 md:gap-8 px-4 w-max"
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                >
                     {[...coverArts, ...coverArts, ...coverArts].map((art, index) => (
                         <motion.button
                             key={`${art.id}-${index}`}
                             onClick={() => openLink(art.link)}
                             whileHover={{ scale: art.link ? 1.05 : 1 }}
-                            className={`text-left flex-shrink-0 w-[240px] md:w-[300px] lg:w-[400px] relative group rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${art.link ? 'cursor-pointer' : 'cursor-default'}`}
+                            className={`text-left flex-shrink-0 w-[240px] md:w-[280px] lg:w-[350px] relative group rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${art.link ? 'cursor-pointer' : 'cursor-default'}`}
                             aria-label={art.link ? `Open ${art.title}` : undefined}
                             disabled={!art.link}
                         >
@@ -89,22 +148,6 @@ export default function CoverArtsSection() {
                     ))}
                 </div>
             </div>
-
-            <style jsx global>{`
-        .pause {
-          animation-play-state: paused;
-        }
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-scroll {
-          animation: scroll 60s linear infinite;
-        }
-        .animate-scroll:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
         </section>
     );
 }

@@ -65,8 +65,8 @@ export default function ConferencesAdmin() {
         <div>
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Conferences</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-2">{items.length} presentations</p>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Talks</h1>
+                    <p className="text-gray-600 dark:text-gray-400 mt-2">{items.length} talks</p>
                 </div>
                 <button
                     onClick={() => {
@@ -75,7 +75,7 @@ export default function ConferencesAdmin() {
                     }}
                     className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
                 >
-                    + Add Conference
+                    + Add Talk
                 </button>
             </div>
 
@@ -84,7 +84,7 @@ export default function ConferencesAdmin() {
                     <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Title</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Conference</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Venue</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Date</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Type</th>
                             <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Actions</th>
@@ -121,7 +121,7 @@ function Modal({ item, onSave, onClose }: { item: Conference; onSave: (item: Con
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                 <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{item.id ? 'Edit' : 'Add'} Conference</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{item.id ? 'Edit' : 'Add'} Talk</h2>
                 </div>
                 <form onSubmit={(e) => { e.preventDefault(); onSave(formData); }} className="p-6 space-y-4">
                     <div>
@@ -129,7 +129,7 @@ function Modal({ item, onSave, onClose }: { item: Conference; onSave: (item: Con
                         <input type="text" required value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Conference Name *</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Venue *</label>
                         <input type="text" required value={formData.conference_name} onChange={(e) => setFormData({ ...formData, conference_name: e.target.value })} className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
                     </div>
                     <div className="grid grid-cols-2 gap-4">

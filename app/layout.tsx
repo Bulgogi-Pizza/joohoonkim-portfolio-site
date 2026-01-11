@@ -31,7 +31,7 @@ export default function RootLayout({
               <footer className="bg-brand-light dark:bg-slate-900 border-t border-brand-dark/5 dark:border-white/5 mt-20">
                 <div className="container mx-auto px-6 lg:px-8 py-8">
                   <div className="text-center text-slate-400">
-                    <p>&copy; 2025 Joohoon Kim. All rights reserved.</p>
+                    <p>&copy; 2026 Joohoon Kim. All rights reserved.</p>
                   </div>
                 </div>
               </footer>
