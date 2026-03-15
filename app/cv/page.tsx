@@ -98,6 +98,26 @@ const cvData = {
     ],
     awards: [
         {
+            name: "Sejong Science Fellowship",
+            details: null,
+            year: "2026 - 2031"
+        },
+        {
+            name: "Chang Kun-Soo Memorial Award",
+            details: "POSTECH",
+            year: "2026"
+        },
+        {
+            name: "Alumni Association Award",
+            details: "POSTECH",
+            year: "2026"
+        },
+        {
+            name: "Minister’s Commendation for the Excellence in BK21 four",
+            details: null,
+            year: "2026"
+        },
+        {
             name: "World Top 2% Scientists",
             details: "Stanford University/Elsevier",
             year: "2025"
@@ -157,12 +177,12 @@ const cvData = {
         {
             title: "Wide-field-of-view, switchable, multi-dimensional light-field display using a metasurface lenticular lens",
             journal: "Nature",
-            status: "In revision"
+            status: "In press"
         },
         {
             title: "300 units per second roll-to-roll manufacturing of visible metalenses",
             journal: "Nature",
-            status: "In revision"
+            status: "In press"
         },
         {
             title: "Scalable manufacturing of high-index atomic layer-polymer hybrid metasurfaces for metaphotonics in the visible",
@@ -207,7 +227,10 @@ const cvData = {
         {
             title: "Polariton condensate far-detuned from exciton resonance in WS2 bound states in the continuum",
             journal: "Nature Communications",
-            status: "In revision"
+            volume: "17",
+            pages: "143",
+            year: "2026",
+            if: "15.7"
         },
         {
             title: "Amorphous to crystalline transition in nanoimprinted sol-gel titanium oxide metasurfaces",
