@@ -5,6 +5,7 @@ import { AdminAPI } from '@/lib/adminApi';
 
 interface Publication {
     id?: number;
+    number: number;
     title: string;
     authors: string;
     journal: string;
@@ -48,6 +49,11 @@ export default function PublicationsAdmin() {
             if (pub.id) {
                 await AdminAPI.update('publications', pub.id, pub);
             } else {
+                // Calculate next number for new publication
+                const maxNumber = publications.length > 0 
+                    ? Math.max(...publications.map(p => p.number || 0))
+                    : 0;
+                pub.number = maxNumber + 1;
                 await AdminAPI.create('publications', pub);
             }
             loadPublications();
@@ -83,7 +89,11 @@ export default function PublicationsAdmin() {
                 </div>
                 <button
                     onClick={() => {
+                        const maxNumber = publications.length > 0 
+                            ? Math.max(...publications.map(p => p.number || 0))
+                            : 0;
                         setEditingPub({
+                            number: maxNumber + 1,
                             title: '',
                             authors: '',
                             journal: '',
@@ -104,6 +114,7 @@ export default function PublicationsAdmin() {
                     <table className="w-full">
                         <thead className="bg-gray-50 dark:bg-gray-700">
                             <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">No.</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Title</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Journal</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Year</th>
@@ -114,6 +125,7 @@ export default function PublicationsAdmin() {
                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                             {publications.map((pub) => (
                                 <tr key={pub.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                    <td className="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white">{pub.number}</td>
                                     <td className="px-6 py-4">
                                         <div className="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">{pub.title}</div>
                                         <div className="text-sm text-gray-500 dark:text-gray-400">{pub.authors}</div>
@@ -189,6 +201,17 @@ function PublicationModal({ publication, onSave, onClose }: {
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Number *</label>
+                        <input
+                            type="number"
+                            required
+                            value={formData.number}
+                            onChange={(e) => setFormData({ ...formData, number: parseInt(e.target.value) })}
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        />
+                    </div>
+
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title *</label>
                         <input
