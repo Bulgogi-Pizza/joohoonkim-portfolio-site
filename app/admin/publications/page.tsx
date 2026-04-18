@@ -21,6 +21,7 @@ interface Publication {
     is_corresponding_author?: boolean;
     is_equal_contribution?: boolean;
     featured_info?: string;
+    show_in_cv?: boolean;
 }
 
 export default function PublicationsAdmin() {
@@ -119,6 +120,7 @@ export default function PublicationsAdmin() {
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Journal</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Year</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">CV</th>
                                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
@@ -139,6 +141,9 @@ export default function PublicationsAdmin() {
                                             }`}>
                                             {pub.status || 'published'}
                                         </span>
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        <input type="checkbox" checked={!!pub.show_in_cv} readOnly className="w-4 h-4 accent-blue-600" />
                                     </td>
                                     <td className="px-6 py-4 text-right space-x-2">
                                         <button
@@ -310,6 +315,10 @@ function PublicationModal({ publication, onSave, onClose }: {
                         </div>
                     </div>
 
+                    <div className="flex items-center gap-3 pt-2">
+                        <input type="checkbox" id="pub_show_in_cv" checked={!!formData.show_in_cv} onChange={e => setFormData({ ...formData, show_in_cv: e.target.checked })} className="w-4 h-4 accent-blue-600" />
+                        <label htmlFor="pub_show_in_cv" className="text-sm font-medium text-gray-700 dark:text-gray-300">CV에 표시</label>
+                    </div>
                     <div className="flex justify-end gap-4 pt-4">
                         <button
                             type="button"

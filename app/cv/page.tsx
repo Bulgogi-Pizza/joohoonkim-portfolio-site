@@ -141,10 +141,10 @@ export default function CVPage() {
     useEffect(() => {
         Promise.all([
             fetch('/api/cv/profile').then(r => r.ok ? r.json() : null),
-            fetch('/api/education').then(r => r.json()),
-            fetch('/api/experience').then(r => r.json()),
-            fetch('/api/awards').then(r => r.json()),
-            fetch('/api/publications').then(r => r.json()),
+            fetch('/api/education?show_in_cv=true').then(r => r.json()),
+            fetch('/api/experience?show_in_cv=true').then(r => r.json()),
+            fetch('/api/awards?show_in_cv=true').then(r => r.json()),
+            fetch('/api/publications?show_in_cv=true').then(r => r.json()),
             fetch('/api/cv-services').then(r => r.json()),
         ])
             .then(([profileData, eduData, expData, awardData, pubData, serviceData]) => {
@@ -249,8 +249,10 @@ export default function CVPage() {
                                         <span className="font-bold italic text-blue-600 dark:text-blue-400">{pub.journal}</span>
                                         {pub.volume && <span className="font-bold text-blue-600 dark:text-blue-400"> {pub.volume}</span>}
                                         {pub.pages && <span>, {pub.pages}</span>}
-                                        {pub.status !== 'in-press' && pub.status !== 'under-submission' && pub.year && <span> ({pub.year})</span>}
-                                        {(pub.status === 'in-press' || pub.status === 'under-submission') && <span> [In press]</span>}
+                                        {pub.year && <span> ({pub.year})</span>}
+                                        {pub.status && pub.status !== 'published' && (
+                                            <span> [{pub.status === 'in-press' ? 'In press' : pub.status === 'under-submission' ? 'Under submission' : pub.status}]</span>
+                                        )}
                                         {pub.impact_factor && <span className="font-bold ml-2">[IF: {pub.impact_factor}]</span>}
                                     </p>
                                 </li>
