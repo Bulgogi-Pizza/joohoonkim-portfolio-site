@@ -16,7 +16,8 @@ frontend:
           fi
         - echo "API_URL=$API_URL"
         - echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
-        - npm ci --include=dev
+        - npm config set cache .npm --global
+        - npm ci --prefer-offline --include=dev
     build:
       commands:
         - npm run build
@@ -28,4 +29,3 @@ frontend:
     paths:
       - .next/cache/**/*
       - .npm/**/*
-      - node_modules/**/*
