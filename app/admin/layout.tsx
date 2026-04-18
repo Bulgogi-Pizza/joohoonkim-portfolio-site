@@ -67,6 +67,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { name: 'Awards', href: '/admin/awards' },
         { name: 'Education', href: '/admin/education' },
         { name: 'Experience', href: '/admin/experience' },
+        { name: 'CV Profile', href: '/admin/cv-profile' },
+        { name: 'CV Services', href: '/admin/cv-services' },
         { name: 'Research Areas', href: '/admin/research-areas' },
         { name: 'Research Highlights', href: '/admin/research-highlights' },
         { name: 'Representative Works', href: '/admin/representative-works' },
