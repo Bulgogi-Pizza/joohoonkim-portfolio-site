@@ -13,6 +13,7 @@ export default function ResearchIndex() {
             .then(data => {
                 if (data && data.length > 0) {
                     router.replace(`/research/${data[0].slug}`);
+                    setLoading(false);
                 } else {
                     setLoading(false);
                 }
