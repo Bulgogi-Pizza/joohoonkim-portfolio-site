@@ -13,6 +13,7 @@ interface Experience {
     description?: string;
     host_advisor?: string;
     show_in_cv?: boolean;
+    cv_order?: number;
 }
 
 export default function ExperienceAdmin() {
@@ -89,6 +90,7 @@ export default function ExperienceAdmin() {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Organization</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Period</th>
                             <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">CV</th>
+                            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">CV Order</th>
                             <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Actions</th>
                         </tr>
                     </thead>
@@ -101,6 +103,7 @@ export default function ExperienceAdmin() {
                                 <td className="px-6 py-4 text-center">
                                     <input type="checkbox" checked={!!item.show_in_cv} readOnly className="w-4 h-4 accent-blue-600" />
                                 </td>
+                                <td className="px-6 py-4 text-center text-sm text-gray-900 dark:text-white">{item.cv_order ?? '-'}</td>
                                 <td className="px-6 py-4 text-right space-x-2">
                                     <button onClick={() => { setEditing(item); setShowModal(true); }} className="text-blue-600 dark:text-blue-400 hover:underline">Edit</button>
                                     <button onClick={() => item.id && handleDelete(item.id)} className="text-red-600 dark:text-red-400 hover:underline">Delete</button>
@@ -159,6 +162,10 @@ function Modal({ item, onSave, onClose }: { item: Experience; onSave: (item: Exp
                     <div className="flex items-center gap-3 pt-2">
                         <input type="checkbox" id="exp_show_in_cv" checked={!!formData.show_in_cv} onChange={e => setFormData({ ...formData, show_in_cv: e.target.checked })} className="w-4 h-4 accent-blue-600" />
                         <label htmlFor="exp_show_in_cv" className="text-sm font-medium text-gray-700 dark:text-gray-300">CV에 표시</label>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">CV Order</label>
+                        <input type="number" value={formData.cv_order ?? ''} onChange={e => setFormData({ ...formData, cv_order: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="비어있으면 맨 뒤" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
                     </div>
                     <div className="flex justify-end gap-4 pt-4">
                         <button type="button" onClick={onClose} className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>

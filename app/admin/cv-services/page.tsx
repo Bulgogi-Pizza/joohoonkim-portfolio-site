@@ -8,6 +8,7 @@ interface CVService {
     title: string;
     description: string;
     order_index: number;
+    cv_order?: number;
 }
 
 export default function CVServicesAdmin() {
@@ -87,6 +88,7 @@ export default function CVServicesAdmin() {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Title</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Description</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Order</th>
+                            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">CV Order</th>
                             <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Actions</th>
                         </tr>
                     </thead>
@@ -96,6 +98,7 @@ export default function CVServicesAdmin() {
                                 <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">{item.title}</td>
                                 <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400 max-w-md truncate">{item.description}</td>
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{item.order_index}</td>
+                                <td className="px-6 py-4 text-center text-sm text-gray-900 dark:text-white">{item.cv_order ?? '-'}</td>
                                 <td className="px-6 py-4 text-right space-x-2">
                                     <button onClick={() => { setEditing(item); setShowModal(true); }} className="text-blue-600 dark:text-blue-400 hover:underline">Edit</button>
                                     <button onClick={() => item.id && handleDelete(item.id)} className="text-red-600 dark:text-red-400 hover:underline">Delete</button>
@@ -151,6 +154,10 @@ function Modal({ item, onSave, onClose }: { item: CVService; onSave: (item: CVSe
                             onChange={e => setFormData({ ...formData, order_index: parseInt(e.target.value) || 0 })}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                         />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">CV Order</label>
+                        <input type="number" value={formData.cv_order ?? ''} onChange={e => setFormData({ ...formData, cv_order: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="비어있으면 맨 뒤" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
                     </div>
                     <div className="flex justify-end gap-4 pt-4">
                         <button type="button" onClick={onClose} className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>
