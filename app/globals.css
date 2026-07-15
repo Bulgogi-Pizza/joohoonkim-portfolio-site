@@ -3,32 +3,73 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 15, 23, 42;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 15, 23, 42;
-    --background-end-rgb: 15, 23, 42;
-  }
+  --foreground-rgb: 22, 24, 29;
+  --background-rgb: 255, 255, 255;
 }
 
 .dark {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 15, 23, 42;
-  --background-end-rgb: 15, 23, 42;
+  --foreground-rgb: 232, 234, 240;
+  --background-rgb: 11, 13, 18;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: rgb(var(--background-start-rgb));
+  background-color: rgb(var(--background-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* ── Home 전체 배경 (HomeBackdrop) ── */
+
+.home-aurora-a {
+  background: radial-gradient(closest-side, rgba(59, 130, 246, 0.14), rgba(139, 92, 246, 0.07) 55%, transparent 75%);
+  filter: blur(64px);
+  animation: aurora-drift 26s ease-in-out infinite alternate;
+}
+
+.home-aurora-b {
+  background: radial-gradient(closest-side, rgba(14, 165, 233, 0.10), transparent 72%);
+  filter: blur(72px);
+  animation: aurora-drift 34s ease-in-out infinite alternate-reverse;
+}
+
+.home-aurora-c {
+  background: radial-gradient(closest-side, rgba(99, 102, 241, 0.09), transparent 72%);
+  filter: blur(72px);
+  animation: aurora-drift 30s ease-in-out infinite alternate;
+}
+
+.dark .home-aurora-a {
+  background: radial-gradient(closest-side, rgba(76, 130, 255, 0.17), rgba(139, 92, 246, 0.09) 55%, transparent 75%);
+}
+
+.dark .home-aurora-b {
+  background: radial-gradient(closest-side, rgba(56, 170, 255, 0.11), transparent 72%);
+}
+
+.dark .home-aurora-c {
+  background: radial-gradient(closest-side, rgba(122, 125, 255, 0.10), transparent 72%);
+}
+
+@keyframes aurora-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(-44px, 32px, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .home-aurora-a,
+  .home-aurora-b,
+  .home-aurora-c {
+    animation: none;
   }
 }

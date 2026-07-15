@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FiLayers, FiCpu, FiActivity, FiArrowRight } from 'react-icons/fi';
 
 import { getImageUrl } from '@/lib/imageUtils';
+import SectionHeader from '@/components/ui/SectionHeader';
+import Card from '@/components/ui/Card';
 
 interface ResearchArea {
     slug: string;
@@ -26,28 +27,27 @@ export default function ResearchSection() {
 
     const getIcon = (slug: string) => {
         switch (slug) {
-            case 'metasurface': return <FiLayers className="w-8 h-8" />;
-            case 'nanofabrication': return <FiCpu className="w-8 h-8" />;
-            default: return <FiActivity className="w-8 h-8" />;
+            case 'metasurface': return <FiLayers className="w-7 h-7" />;
+            case 'nanofabrication': return <FiCpu className="w-7 h-7" />;
+            default: return <FiActivity className="w-7 h-7" />;
         }
     };
 
     return (
-        <section id="research" className="py-12 md:py-24 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
-            <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        <section id="research" className="py-10 md:py-14">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-10 md:mb-16"
                 >
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        Research Areas
-                    </h2>
-                    <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
+                    <SectionHeader
+                        title="Research Areas"
+                        count={researchAreas.length > 0 ? `${String(researchAreas.length).padStart(2, '0')} areas` : undefined}
+                    />
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
                     {researchAreas.map((area, index) => (
                         <motion.div
                             key={area.slug}
@@ -55,36 +55,32 @@ export default function ResearchSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="group relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1"
                         >
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                            <Card href={`/research/${area.slug}`} topBar className="group p-7 h-full">
+                                <div className="mb-5 text-accent dark:text-dark-accent">
+                                    {area.icon_path ? (
+                                        <img
+                                            src={getImageUrl(area.icon_path)}
+                                            alt=""
+                                            className="w-8 h-8 object-contain mix-blend-multiply dark:mix-blend-screen dark:invert"
+                                        />
+                                    ) : (
+                                        getIcon(area.slug)
+                                    )}
+                                </div>
 
-                            <div className="mb-6 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-xl inline-block text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                                {area.icon_path ? (
-                                    <img
-                                        src={getImageUrl(area.icon_path)}
-                                        alt={area.title}
-                                        className="w-9 h-9 object-contain mix-blend-multiply dark:mix-blend-screen dark:invert group-hover:mix-blend-screen group-hover:invert"
-                                    />
-                                ) : (
-                                    getIcon(area.slug)
-                                )}
-                            </div>
+                                <h3 className="font-heading text-lg font-bold text-ink dark:text-dark-ink mb-2 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors">
+                                    {area.title}
+                                </h3>
 
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                {area.title}
-                            </h3>
+                                <p className="text-sm text-ink-2 dark:text-dark-ink-2 leading-relaxed mb-5 line-clamp-3">
+                                    {area.description.replace(/!\[.*?\]\(.*?\)/g, '').replace(/##/g, '').replace(/\*\*/g, '')}
+                                </p>
 
-                            <p className="text-gray-600 dark:text-gray-400 mb-6 line-clamp-3">
-                                {area.description.replace(/!\[.*?\]\(.*?\)/g, '').replace(/##/g, '').replace(/\*\*/g, '')}
-                            </p>
-
-                            <Link
-                                href={`/research/${area.slug}`}
-                                className="inline-flex items-center text-blue-600 dark:text-blue-400 font-semibold group-hover:gap-2 transition-all"
-                            >
-                                Learn more <FiArrowRight className="ml-2" />
-                            </Link>
+                                <span className="inline-flex items-center gap-1 text-sm text-accent dark:text-dark-accent font-semibold group-hover:gap-2.5 transition-all">
+                                    Learn more <FiArrowRight />
+                                </span>
+                            </Card>
                         </motion.div>
                     ))}
                 </div>

@@ -45,7 +45,7 @@ function Navbar() {
     ];
 
     const navClasses = `fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
-        ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-brand-dark/5 dark:border-white/5 shadow-sm py-2'
+        ? 'bg-paper/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-line dark:border-dark-line py-2'
         : 'bg-transparent py-4'
         } `;
 
@@ -56,7 +56,7 @@ function Navbar() {
                     {/* Logo */}
                     <Link
                         href="/"
-                        className="text-2xl font-heading font-bold text-brand-dark dark:text-white hover:text-brand-primary transition-colors"
+                        className="font-heading text-2xl font-bold tracking-tight text-ink dark:text-dark-ink hover:text-accent dark:hover:text-dark-accent transition-colors"
                     >
                         Joohoon Kim
                     </Link>
@@ -73,10 +73,10 @@ function Navbar() {
                                 <Link
                                     href={item.to}
                                     className={`
-                          flex items-center gap-1 text-base font-medium transition-all duration-300 relative
-                          ${pathname === item.to ? 'text-brand-primary' : 'text-slate-600 dark:text-slate-300 hover:text-brand-dark dark:hover:text-white'}
-after:content-[''] after:absolute after:left-0 after:bottom-[-4px] after:w-0 after:h-[2px]
-after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-full
+                          flex items-center gap-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-300 relative
+                          ${pathname === item.to ? 'text-ink dark:text-dark-ink after:w-full' : 'text-ink-3 dark:text-dark-ink-3 hover:text-ink dark:hover:text-dark-ink'}
+after:content-[''] after:absolute after:left-0 after:bottom-[-5px] after:w-0 after:h-[2px]
+after:bg-ink dark:after:bg-dark-ink after:transition-all after:duration-300 hover:after:w-full
   `}
                                 >
                                     {item.name}
@@ -91,13 +91,13 @@ after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-ful
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: 10 }}
                                             transition={{ duration: 0.2 }}
-                                            className="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-brand-dark/5 dark:border-white/5 rounded-xl shadow-xl overflow-hidden"
+                                            className="absolute top-full left-0 mt-2 w-64 bg-card dark:bg-dark-card border border-line dark:border-dark-line rounded-xl shadow-elev-hover overflow-hidden"
                                         >
                                             {researchAreas.map((area) => (
                                                 <Link
                                                     key={area.slug}
                                                     href={`/research/${area.slug}`}
-                                                    className="block px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-brand-light dark:hover:bg-gray-700 hover:text-brand-primary transition-colors"
+                                                    className="block px-4 py-3 text-sm text-ink-2 dark:text-dark-ink-2 hover:bg-line/40 dark:hover:bg-white/5 hover:text-accent dark:hover:text-dark-accent transition-colors"
                                                 >
                                                     {area.title}
                                                 </Link>
@@ -113,16 +113,16 @@ after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-ful
                     <div className="flex items-center space-x-4">
                         <button
                             onClick={toggleDarkMode}
-                            className="p-2 rounded-full bg-brand-light dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-600 dark:text-slate-300 hover:text-brand-primary transition-all"
+                            className="p-2 rounded-full border border-line dark:border-dark-line hover:border-ink/30 dark:hover:border-white/25 text-ink-2 dark:text-dark-ink-2 hover:text-ink dark:hover:text-dark-ink transition-all"
                             aria-label="Toggle dark mode"
                         >
-                            {isDarkMode ? <FiMoon size={20} /> : <FiSun size={20} />}
+                            {isDarkMode ? <FiMoon size={18} /> : <FiSun size={18} />}
                         </button>
 
                         {/* Mobile Menu Button */}
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-brand-primary transition-colors"
+                            className="lg:hidden p-2 text-ink-2 dark:text-dark-ink-2 hover:text-accent dark:hover:text-dark-accent transition-colors"
                         >
                             {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
                         </button>
@@ -136,7 +136,7 @@ after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-ful
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="lg:hidden overflow-hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border-t border-brand-dark/5 dark:border-white/5 mt-4 rounded-xl shadow-lg"
+                            className="lg:hidden overflow-hidden bg-card dark:bg-dark-card border border-line dark:border-dark-line mt-4 rounded-xl shadow-elev"
                         >
                             <div className="px-4 py-6 space-y-4">
                                 {menuItems.map((item) => (
@@ -144,8 +144,8 @@ after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-ful
                                         <Link
                                             href={item.to}
                                             className={`
-                          block text-lg font-medium transition-colors
-                          ${pathname === item.to ? 'text-brand-primary' : 'text-slate-600 dark:text-slate-300 hover:text-brand-dark dark:hover:text-white'}
+                          block font-mono text-sm font-semibold uppercase tracking-[0.14em] transition-colors
+                          ${pathname === item.to ? 'text-ink dark:text-dark-ink' : 'text-ink-3 dark:text-dark-ink-3 hover:text-ink dark:hover:text-dark-ink'}
 `}
                                             onClick={() => setIsMobileMenuOpen(false)}
                                         >
@@ -153,12 +153,12 @@ after:bg-brand-primary after:transition-all after:duration-300 hover:after:w-ful
                                         </Link>
 
                                         {item.hasDropdown && (
-                                            <div className="ml-4 mt-2 space-y-2 border-l border-brand-dark/10 dark:border-white/10 pl-4">
+                                            <div className="ml-4 mt-2 space-y-2 border-l border-line dark:border-dark-line pl-4">
                                                 {researchAreas.map((area) => (
                                                     <Link
                                                         key={area.slug}
                                                         href={`/research/${area.slug}`}
-                                                        className="block text-sm text-slate-500 dark:text-slate-400 hover:text-brand-primary transition-colors"
+                                                        className="block text-sm text-ink-3 dark:text-dark-ink-3 hover:text-accent dark:hover:text-dark-accent transition-colors"
                                                         onClick={() => setIsMobileMenuOpen(false)}
                                                     >
                                                         {area.title}

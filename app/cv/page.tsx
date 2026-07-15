@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import SectionHeader from '@/components/ui/SectionHeader';
+import MonoLabel from '@/components/ui/MonoLabel';
 
 interface ContactInfo {
     id: number;
@@ -78,26 +80,51 @@ const ProfileSection = ({ profile }: { profile: CVProfile }) => {
     const links = profile.contact_info.filter(c => c.data_type === 'link');
 
     return (
-        <header className="mb-12 md:mb-16">
-            <div className="flex flex-col lg:flex-row gap-6 md:gap-10 items-center lg:items-start">
-                <div className="flex-shrink-0 w-40 h-52 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-[280px] lg:h-[364px] shadow-2xl rounded-lg overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700">
+        <header className="mb-12 md:mb-16 pb-10 md:pb-12 border-b border-line dark:border-dark-line">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+                <div className="flex-shrink-0 w-40 h-52 sm:w-56 sm:h-72 md:w-64 md:h-80 lg:w-[280px] lg:h-[364px] rounded overflow-hidden border border-line dark:border-dark-line shadow-elev dark:shadow-none">
                     <img src="/assets/images/JoohoonKim.jpg" alt={profile.name} className="w-full h-full object-cover" />
                 </div>
-                <div className="flex-1 text-center lg:text-left">
-                    <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">{profile.name}</h1>
+                <div className="flex-1 min-w-0">
+                    <MonoLabel color="accent">Curriculum Vitae</MonoLabel>
+                    <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink mt-3">
+                        {profile.name}
+                    </h1>
                     {profile.title && (
-                        <p className="mt-2 text-base sm:text-lg text-blue-600 dark:text-blue-400 font-semibold">{profile.title}</p>
+                        <p className="mt-2 text-base md:text-lg font-medium text-ink-2 dark:text-dark-ink-2">
+                            {profile.title}
+                        </p>
                     )}
-                    <div className="mt-4 space-y-2 text-sm sm:text-base text-gray-900 dark:text-white">
-                        {email && <p><strong>Email:</strong> {email.value}</p>}
-                        {phone && <p><strong>Phone:</strong> {phone.value}</p>}
-                        {office && <p><strong>Office:</strong> {office.value}</p>}
-                    </div>
+                    <dl className="mt-6 space-y-2.5">
+                        {email && (
+                            <div className="flex items-baseline gap-4">
+                                <dt className="w-16 shrink-0"><MonoLabel>Email</MonoLabel></dt>
+                                <dd className="text-sm md:text-base text-ink dark:text-dark-ink break-all">{email.value}</dd>
+                            </div>
+                        )}
+                        {phone && (
+                            <div className="flex items-baseline gap-4">
+                                <dt className="w-16 shrink-0"><MonoLabel>Phone</MonoLabel></dt>
+                                <dd className="text-sm md:text-base text-ink dark:text-dark-ink">{phone.value}</dd>
+                            </div>
+                        )}
+                        {office && (
+                            <div className="flex items-baseline gap-4">
+                                <dt className="w-16 shrink-0"><MonoLabel>Office</MonoLabel></dt>
+                                <dd className="text-sm md:text-base text-ink dark:text-dark-ink">{office.value}</dd>
+                            </div>
+                        )}
+                    </dl>
                     {links.length > 0 && (
-                        <div className="mt-3 flex gap-x-4 justify-center lg:justify-start flex-wrap">
+                        <div className="mt-6 flex flex-wrap gap-2">
                             {links.map(link => (
-                                <a key={link.id} href={link.value} target="_blank" rel="noopener noreferrer"
-                                    className="text-sm sm:text-base font-medium underline text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+                                <a
+                                    key={link.id}
+                                    href={link.value}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center px-3 py-1 rounded-[3px] border border-line dark:border-dark-line font-mono text-xs uppercase tracking-wider text-ink-2 dark:text-dark-ink-2 hover:border-ink dark:hover:border-white/40 hover:text-ink dark:hover:text-dark-ink transition-colors"
+                                >
                                     {link.label}
                                 </a>
                             ))}
@@ -109,24 +136,29 @@ const ProfileSection = ({ profile }: { profile: CVProfile }) => {
     );
 };
 
-const CVSection = ({ title, link = null, children }: { title: string; link?: string | null; children: React.ReactNode }) => (
-    <section className="mb-10 md:mb-12">
-        <div className="relative">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3 pb-3 border-b-2 border-gray-200 dark:border-gray-700">
-                {title}
-            </h2>
-            {link && (
-                <Link href={link}
-                    className="absolute top-0 right-0 p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
-                    aria-label="View all">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
+const CVSection = ({ title, count, link = null, children }: { title: string; count?: string; link?: string | null; children: React.ReactNode }) => (
+    <section>
+        <SectionHeader
+            title={title}
+            count={count}
+            action={link ? (
+                <Link
+                    href={link}
+                    className="shrink-0 font-mono text-xs uppercase tracking-widest text-ink-3 dark:text-dark-ink-3 hover:text-accent dark:hover:text-dark-accent transition-colors"
+                    aria-label="View all"
+                >
+                    View all
                 </Link>
-            )}
-        </div>
+            ) : undefined}
+        />
         {children}
     </section>
+);
+
+const rowClass = 'group relative flex flex-col sm:flex-row gap-1.5 sm:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors';
+
+const HoverBar = () => (
+    <span aria-hidden className="absolute left-0 top-4 bottom-4 w-[2px] bg-ink dark:bg-dark-ink opacity-0 group-hover:opacity-100 transition-opacity" />
 );
 
 export default function CVPage() {
@@ -161,119 +193,152 @@ export default function CVPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900 flex justify-center items-center">
-                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-blue-600 rounded-full" />
+            <div className="min-h-screen flex justify-center items-center">
+                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-accent dark:border-dark-accent dark:border-t-transparent rounded-full" />
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen pt-16 bg-white dark:bg-gray-900 font-noto">
-            <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-60 py-10 sm:py-12 max-w-[1600px]">
+        <div className="min-h-screen">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
                 {profile && <ProfileSection profile={profile} />}
 
-                <main className="space-y-16">
-                    <CVSection title="Education">
-                        <ul className="space-y-3 list-disc pl-5">
+                <main className="space-y-14 md:space-y-16">
+                    <CVSection title="Education" count={String(education.length).padStart(2, '0')}>
+                        <div className="border-t border-line dark:border-dark-line">
                             {education.map(edu => (
-                                <li key={edu.id} className="mb-4">
-                                    <span className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
-                                        {edu.degree}
+                                <div key={edu.id} className={rowClass}>
+                                    <HoverBar />
+                                    <span className="shrink-0 sm:w-28 sm:pt-1 font-mono text-xs uppercase tracking-widest text-accent dark:text-dark-accent">
+                                        {edu.start_year} – {edu.end_year}
                                     </span>
-                                    <span className="text-base md:text-lg text-gray-900 dark:text-white">
-                                        , {edu.institution}, {edu.location} ({edu.start_year} – {edu.end_year})
-                                    </span>
-                                    {edu.advisor && (
-                                        <p className="text-base md:text-lg text-gray-900/80 dark:text-white/80 mt-1 italic">
-                                            Advisor: {edu.advisor}
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-base font-semibold text-ink dark:text-dark-ink leading-snug">
+                                            {edu.degree}
+                                        </h3>
+                                        <p className="mt-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                            {edu.institution}, {edu.location}
                                         </p>
-                                    )}
-                                </li>
-                            ))}
-                        </ul>
-                    </CVSection>
-
-                    <CVSection title="Professional Experience">
-                        <ul className="space-y-3 list-disc pl-5">
-                            {experience.map(exp => (
-                                <li key={exp.id} className="mb-4">
-                                    <span className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
-                                        {exp.position}
-                                    </span>
-                                    <span className="text-base md:text-lg text-gray-900 dark:text-white">
-                                        , {exp.organization}, {exp.location} ({exp.start_year}{exp.end_year !== exp.start_year ? ` – ${exp.end_year}` : ''})
-                                    </span>
-                                    {exp.description && (
-                                        <p className="text-base md:text-lg text-gray-900/80 dark:text-white/80 mt-1 italic">
-                                            {exp.description}
-                                        </p>
-                                    )}
-                                    {exp.host_advisor && (
-                                        <p className="text-base md:text-lg text-gray-900/80 dark:text-white/80 mt-1 italic">
-                                            Host: {exp.host_advisor}
-                                        </p>
-                                    )}
-                                </li>
-                            ))}
-                        </ul>
-                    </CVSection>
-
-                    <CVSection title="Selective Honors and Awards" link="/awards">
-                        <ul className="space-y-3 list-disc pl-5">
-                            {awards.map(award => (
-                                <li key={award.id} className="mb-4">
-                                    <span className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
-                                        {award.title}
-                                    </span>
-                                    {(award.rank || award.organization) && (
-                                        <span className="text-base md:text-lg text-gray-900/80 dark:text-white/80">
-                                            , {award.rank || award.organization}
-                                        </span>
-                                    )}
-                                    <span className="text-base md:text-lg text-gray-900/80 dark:text-white/80">
-                                        , {award.year}
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                    </CVSection>
-
-                    <CVSection title="Selected Publications" link="/publications">
-                        <ul className="space-y-3 list-disc pl-5">
-                            {publications.map(pub => (
-                                <li key={pub.id} className="mb-4">
-                                    <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
-                                        {pub.title}
-                                    </p>
-                                    <p className="text-base md:text-lg mt-1 text-gray-900 dark:text-white">
-                                        <span className="font-bold italic text-blue-600 dark:text-blue-400">{pub.journal}</span>
-                                        {pub.volume && <span className="font-bold text-blue-600 dark:text-blue-400"> {pub.volume}</span>}
-                                        {pub.pages && <span>, {pub.pages}</span>}
-                                        {pub.year && <span> ({pub.year})</span>}
-                                        {pub.status && pub.status !== 'published' && (
-                                            <span> [{pub.status === 'in-press' ? 'In press' : pub.status === 'under-submission' ? 'Under submission' : pub.status}]</span>
+                                        {edu.advisor && (
+                                            <p className="mt-1 text-sm text-ink-3 dark:text-dark-ink-3">
+                                                Advisor: {edu.advisor}
+                                            </p>
                                         )}
-                                        {pub.impact_factor && <span className="font-bold ml-2">[IF: {pub.impact_factor}]</span>}
-                                    </p>
-                                </li>
+                                    </div>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
+                    </CVSection>
+
+                    <CVSection title="Professional Experience" count={String(experience.length).padStart(2, '0')}>
+                        <div className="border-t border-line dark:border-dark-line">
+                            {experience.map(exp => (
+                                <div key={exp.id} className={rowClass}>
+                                    <HoverBar />
+                                    <span className="shrink-0 sm:w-28 sm:pt-1 font-mono text-xs uppercase tracking-widest text-accent dark:text-dark-accent">
+                                        {exp.start_year}{exp.end_year !== exp.start_year ? ` – ${exp.end_year}` : ''}
+                                    </span>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-base font-semibold text-ink dark:text-dark-ink leading-snug">
+                                            {exp.position}
+                                        </h3>
+                                        <p className="mt-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                            {exp.organization}, {exp.location}
+                                        </p>
+                                        {exp.description && (
+                                            <p className="mt-1 text-sm text-ink-3 dark:text-dark-ink-3">
+                                                {exp.description}
+                                            </p>
+                                        )}
+                                        {exp.host_advisor && (
+                                            <p className="mt-1 text-sm text-ink-3 dark:text-dark-ink-3">
+                                                Host: {exp.host_advisor}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CVSection>
+
+                    <CVSection title="Selective Honors and Awards" count={String(awards.length).padStart(2, '0')} link="/awards">
+                        <div className="border-t border-line dark:border-dark-line">
+                            {awards.map(award => (
+                                <div key={award.id} className={rowClass}>
+                                    <HoverBar />
+                                    <span className="shrink-0 sm:w-28 sm:pt-1 font-mono text-xs uppercase tracking-widest text-accent dark:text-dark-accent">
+                                        {award.year}
+                                    </span>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-base font-semibold text-ink dark:text-dark-ink leading-snug">
+                                            {award.title}
+                                        </h3>
+                                        {(award.rank || award.organization) && (
+                                            <p className="mt-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                                {award.rank || award.organization}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </CVSection>
+
+                    <CVSection title="Selected Publications" count={String(publications.length).padStart(2, '0')} link="/publications">
+                        <div className="border-t border-line dark:border-dark-line">
+                            {publications.map(pub => (
+                                <article key={pub.id} className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors">
+                                    <HoverBar />
+                                    <span className="font-mono text-xs text-accent dark:text-dark-accent shrink-0 w-8 pt-1 text-right">
+                                        {pub.number}
+                                    </span>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-base font-semibold text-ink dark:text-dark-ink mb-1.5 leading-snug">
+                                            {pub.title}
+                                        </h3>
+                                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                            <span className="italic font-medium">{pub.journal}</span>
+                                            {pub.volume && <span className="font-semibold">{pub.volume}</span>}
+                                            {pub.pages && <span>, {pub.pages}</span>}
+                                            {pub.year && <span>({pub.year})</span>}
+                                            {pub.status && pub.status !== 'published' && (
+                                                <span className="text-ink-3 dark:text-dark-ink-3">
+                                                    [{pub.status === 'in-press' ? 'In press' : pub.status === 'under-submission' ? 'Under submission' : pub.status}]
+                                                </span>
+                                            )}
+                                            {pub.impact_factor && (
+                                                <span className="font-mono text-xs text-ink-3 dark:text-dark-ink-3">
+                                                    [IF: {pub.impact_factor}]
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
                     </CVSection>
 
                     {services.length > 0 && (
-                        <CVSection title="Professional Services">
-                            <ul className="space-y-3 list-disc pl-5">
-                                {services.map(service => (
-                                    <li key={service.id} className="mb-4">
-                                        <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
-                                            {service.title}
-                                        </p>
-                                        <p className="text-base md:text-lg text-gray-900/80 dark:text-white/80 mt-1">
-                                            {service.description}
-                                        </p>
-                                    </li>
+                        <CVSection title="Professional Services" count={String(services.length).padStart(2, '0')}>
+                            <div className="border-t border-line dark:border-dark-line">
+                                {services.map((service, idx) => (
+                                    <div key={service.id} className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors">
+                                        <HoverBar />
+                                        <span className="font-mono text-xs text-accent dark:text-dark-accent shrink-0 w-8 pt-1 text-right">
+                                            {String(idx + 1).padStart(2, '0')}
+                                        </span>
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className="text-base font-semibold text-ink dark:text-dark-ink leading-snug">
+                                                {service.title}
+                                            </h3>
+                                            <p className="mt-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                                {service.description}
+                                            </p>
+                                        </div>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
                         </CVSection>
                     )}
                 </main>

@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { motion } from 'framer-motion';
 import { getImageUrl } from '@/lib/imageUtils';
 import { useRouter } from 'next/navigation';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 const isExternal = (href: string) => /^https?:\/\//i.test(href);
 
@@ -108,18 +109,18 @@ export default function CoverArtsSection() {
     if (coverArts.length === 0) return null;
 
     return (
-        <section className="py-12 md:py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-            <div className="container mx-auto px-6 lg:px-12 mb-8 md:mb-12">
+        <section className="py-14 md:py-20 my-6 bg-ink dark:bg-black/40 overflow-hidden">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl mb-2">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center"
                 >
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        Featured Cover Arts
-                    </h2>
-                    <div className="w-20 h-1 bg-indigo-500 mx-auto rounded-full" />
+                    <SectionHeader
+                        inverted
+                        title="Featured Cover Arts"
+                        count={`${coverArts.length} covers`}
+                    />
                 </motion.div>
             </div>
 
@@ -136,7 +137,7 @@ export default function CoverArtsSection() {
                             key={`${art.id}-${index}`}
                             onClick={() => openLink(art.link)}
                             whileHover={{ scale: art.link ? 1.05 : 1 }}
-                            className={`text-left flex-shrink-0 w-[240px] md:w-[280px] lg:w-[350px] relative group rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${art.link ? 'cursor-pointer' : 'cursor-default'}`}
+                            className={`text-left flex-shrink-0 w-[240px] md:w-[280px] lg:w-[350px] relative group rounded overflow-hidden border border-white/15 bg-white/[.03] transition-all duration-200 hover:border-white/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${art.link ? 'cursor-pointer' : 'cursor-default'}`}
                             aria-label={art.link ? `Open ${art.title}` : undefined}
                             disabled={!art.link}
                         >
@@ -146,15 +147,13 @@ export default function CoverArtsSection() {
                                     alt={art.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
-                                    <div className="flex flex-col items-center">
-                                        <h3 className="text-white font-bold text-lg mb-2">{art.title}</h3>
-                                        {art.link && (
-                                            <div className="bg-indigo-600 text-white p-3 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                                <FiExternalLink size={20} />
-                                            </div>
-                                        )}
-                                    </div>
+                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                                    <h3 className="text-white font-heading font-bold text-base md:text-lg leading-snug mb-2">{art.title}</h3>
+                                    {art.link && (
+                                        <span className="inline-flex items-center gap-1.5 text-white/80 font-mono text-xs uppercase tracking-widest transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                            View <FiExternalLink size={13} />
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                         </motion.button>

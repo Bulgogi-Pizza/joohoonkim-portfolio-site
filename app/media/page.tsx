@@ -1,6 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { FiArrowUpRight, FiSearch } from 'react-icons/fi';
+import SectionHeader from '@/components/ui/SectionHeader';
+import MonoLabel from '@/components/ui/MonoLabel';
+import Tag from '@/components/ui/Tag';
 
 interface MediaItem {
     id: number;
@@ -62,36 +66,6 @@ export default function MediaPage() {
         return matchesYear && matchesCategory && matchesSearch;
     });
 
-    // Category styles
-    const getCategoryStyle = (category: string) => {
-        const styles: any = {
-            'news': {
-                class: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300',
-                icon: '📰'
-            },
-            'interview': {
-                class: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-                icon: '🎤'
-            },
-            'feature': {
-                class: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300',
-                icon: '⭐'
-            },
-            'press-release': {
-                class: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
-                icon: '📢'
-            },
-            'research-highlight': {
-                class: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300',
-                icon: '🔬'
-            }
-        };
-        return styles[category] || {
-            class: 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300',
-            icon: '📄'
-        };
-    };
-
     // Date formatting
     const formatDate = (dateStr: string) => {
         const date = new Date(dateStr);
@@ -104,194 +78,183 @@ export default function MediaPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-6 py-24">
-                    <div className="text-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                        <p className="text-gray-600 dark:text-gray-400">Loading media coverage...</p>
-                    </div>
-                </div>
+            <div className="min-h-screen flex justify-center items-center">
+                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-accent dark:border-dark-accent dark:border-t-transparent rounded-full"></div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-6 py-24">
-                    <div className="text-center">
-                        <p className="text-red-500">{error}</p>
-                    </div>
-                </div>
+            <div className="min-h-screen flex justify-center items-center">
+                <p className="text-ink-2 dark:text-dark-ink-2">{error}</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-            <div className="container mx-auto px-6 py-12">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-                        Media & Press Coverage
+        <div className="min-h-screen">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
+                {/* Page Header */}
+                <div className="mb-10">
+                    <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
+                        Media &amp; Press Coverage
                     </h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-6">
+                    <p className="mt-6 text-base text-ink-2 dark:text-dark-ink-2 leading-relaxed max-w-2xl">
                         Featured stories, interviews, and media coverage highlighting
                         breakthrough research and scientific achievements
                     </p>
 
                     {/* Stats */}
-                    <div className="flex justify-center space-x-8 text-sm text-gray-600 dark:text-gray-400">
-                        <div><span className="font-semibold text-blue-600">{mediaItems.length}</span> Total Coverage</div>
-                        <div><span className="font-semibold text-blue-600">{mediaItems.filter(m => m.category === 'interview').length}</span> Interviews</div>
-                        <div><span className="font-semibold text-blue-600">{new Set(mediaItems.map(m => m.source)).size}</span> Media Outlets</div>
-                        <div><span className="font-semibold text-blue-600">{years.length}</span> Years Active</div>
+                    <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                        <MonoLabel>
+                            <span className="text-accent dark:text-dark-accent font-semibold">{mediaItems.length}</span> Total Coverage
+                        </MonoLabel>
+                        <MonoLabel>
+                            <span className="text-accent dark:text-dark-accent font-semibold">{mediaItems.filter(m => m.category === 'interview').length}</span> Interviews
+                        </MonoLabel>
+                        <MonoLabel>
+                            <span className="text-accent dark:text-dark-accent font-semibold">{new Set(mediaItems.map(m => m.source)).size}</span> Media Outlets
+                        </MonoLabel>
+                        <MonoLabel>
+                            <span className="text-accent dark:text-dark-accent font-semibold">{years.length}</span> Years Active
+                        </MonoLabel>
                     </div>
                 </div>
 
                 {/* Search & Filter */}
-                <div className="mb-8 space-y-4">
-                    <div className="relative max-w-md mx-auto">
+                <div className="mb-10 flex flex-wrap items-center gap-3">
+                    <div className="relative w-full sm:w-72">
+                        <FiSearch
+                            aria-hidden
+                            size={14}
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-3 dark:text-dark-ink-3 pointer-events-none"
+                        />
                         <input
                             type="text"
                             placeholder="Search media coverage..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full pl-9 pr-3 py-2 rounded-[3px] border border-line dark:border-dark-line bg-card dark:bg-dark-card text-sm text-ink dark:text-dark-ink placeholder:text-ink-3 dark:placeholder:text-dark-ink-3 focus:outline-none focus:border-ink/60 dark:focus:border-white/40 transition-colors"
                         />
-                        <svg className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
                     </div>
 
-                    <div className="flex flex-wrap justify-center gap-4">
-                        {/* Year Filter */}
-                        <select
-                            value={filters.year}
-                            onChange={(e) => setFilters({ ...filters, year: e.target.value })}
-                            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="">All Years</option>
-                            {years.map(year => (
-                                <option key={year} value={year}>{year}</option>
-                            ))}
-                        </select>
+                    {/* Year Filter */}
+                    <select
+                        value={filters.year}
+                        onChange={(e) => setFilters({ ...filters, year: e.target.value })}
+                        className="px-3 py-2 rounded-[3px] border border-line dark:border-dark-line bg-card dark:bg-dark-card font-mono text-xs uppercase tracking-wider text-ink-2 dark:text-dark-ink-2 focus:outline-none focus:border-ink/60 dark:focus:border-white/40 transition-colors"
+                    >
+                        <option value="">All Years</option>
+                        {years.map(year => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </select>
 
-                        {/* Category Filter */}
-                        <select
-                            value={filters.category}
-                            onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-                            className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                        >
-                            <option value="">All Categories</option>
-                            <option value="news">News</option>
-                            <option value="interview">Interview</option>
-                            <option value="feature">Feature Story</option>
-                            <option value="press-release">Press Release</option>
-                            <option value="research-highlight">Research Highlight</option>
-                        </select>
+                    {/* Category Filter */}
+                    <select
+                        value={filters.category}
+                        onChange={(e) => setFilters({ ...filters, category: e.target.value })}
+                        className="px-3 py-2 rounded-[3px] border border-line dark:border-dark-line bg-card dark:bg-dark-card font-mono text-xs uppercase tracking-wider text-ink-2 dark:text-dark-ink-2 focus:outline-none focus:border-ink/60 dark:focus:border-white/40 transition-colors"
+                    >
+                        <option value="">All Categories</option>
+                        <option value="news">News</option>
+                        <option value="interview">Interview</option>
+                        <option value="feature">Feature Story</option>
+                        <option value="press-release">Press Release</option>
+                        <option value="research-highlight">Research Highlight</option>
+                    </select>
 
-                        {/* Reset Button */}
-                        <button
-                            onClick={() => {
-                                setFilters({ year: '', category: '' });
-                                setSearchTerm('');
-                            }}
-                            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                        >
-                            Reset
-                        </button>
-                    </div>
+                    {/* Reset Button */}
+                    <button
+                        onClick={() => {
+                            setFilters({ year: '', category: '' });
+                            setSearchTerm('');
+                        }}
+                        className="px-3.5 py-2 rounded-[3px] border border-line dark:border-dark-line font-mono text-xs uppercase tracking-wider text-ink-2 dark:text-dark-ink-2 hover:border-ink dark:hover:border-white/40 transition-colors"
+                    >
+                        Reset
+                    </button>
                 </div>
 
+                <SectionHeader
+                    title="Coverage"
+                    count={`${filteredMediaItems.length} items`}
+                />
+
                 {/* Media Items Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                     {filteredMediaItems
                         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-                        .map((item) => {
-                            const categoryInfo = getCategoryStyle(item.category);
-
-                            return (
-                                <article
-                                    key={item.id}
-                                    className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                                >
-                                    {/* Image Area */}
-                                    <div className="aspect-video overflow-hidden relative">
-                                        {item.image_url ? (
+                        .map((item) => (
+                            <article
+                                key={item.id}
+                                className="group flex flex-col bg-card dark:bg-dark-card border border-line dark:border-dark-line rounded overflow-hidden shadow-elev dark:shadow-none transition-all duration-200 hover:-translate-y-0.5 hover:shadow-elev-hover hover:border-ink/50 dark:hover:border-white/30"
+                            >
+                                {/* Framed Image */}
+                                {item.image_url && (
+                                    <div className="p-2.5 pb-0">
+                                        <div className="aspect-video rounded-[3px] overflow-hidden bg-line/40 dark:bg-white/[.05] border border-line/70 dark:border-dark-line">
                                             <img
                                                 src={item.image_url}
                                                 alt={item.title}
-                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-[1.04]"
+                                                loading="lazy"
                                             />
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Content Area */}
+                                <div className="flex-1 flex flex-col px-3.5 pt-3.5 pb-4">
+                                    <div className="flex items-baseline justify-between gap-3 mb-2">
+                                        <MonoLabel color="accent" className="truncate">
+                                            {item.source}
+                                        </MonoLabel>
+                                        <time className="shrink-0 font-mono text-xs tracking-wider text-ink-3 dark:text-dark-ink-3">
+                                            {formatDate(item.date)}
+                                        </time>
+                                    </div>
+
+                                    <h3 className="font-heading text-base font-bold text-ink dark:text-dark-ink leading-snug mb-2 line-clamp-2">
+                                        {item.title}
+                                    </h3>
+
+                                    {item.description && (
+                                        <p className="text-sm text-ink-2 dark:text-dark-ink-2 leading-relaxed line-clamp-3 mb-4">
+                                            {item.description}
+                                        </p>
+                                    )}
+
+                                    {/* Footer */}
+                                    <div className="mt-auto pt-3 border-t border-line dark:border-dark-line flex items-center justify-between gap-3">
+                                        <Tag>{item.category.replace('-', ' ')}</Tag>
+
+                                        {item.url ? (
+                                            <a
+                                                href={item.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-accent dark:text-dark-accent hover:text-ink dark:hover:text-dark-ink transition-colors"
+                                            >
+                                                Read Article
+                                                <FiArrowUpRight aria-hidden size={14} />
+                                            </a>
                                         ) : (
-                                            <div className="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
-                                                <div className="text-6xl">{categoryInfo.icon}</div>
-                                            </div>
-                                        )}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
-                                        <div className="absolute top-4 left-4">
-                                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${categoryInfo.class}`}>
-                                                <span className="mr-1">{categoryInfo.icon}</span>
-                                                {item.category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                            <span className="font-mono text-xs uppercase tracking-widest text-ink-3 dark:text-dark-ink-3">
+                                                View Details
                                             </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Content Area */}
-                                    <div className="p-6">
-                                        <div className="flex items-center justify-between mb-3">
-                                            <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
-                                                {item.source}
-                                            </span>
-                                            <time className="text-sm text-gray-500 dark:text-gray-400">
-                                                {formatDate(item.date)}
-                                            </time>
-                                        </div>
-
-                                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                            {item.title}
-                                        </h3>
-
-                                        {item.description && (
-                                            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3 mb-4">
-                                                {item.description}
-                                            </p>
                                         )}
-
-                                        {/* Action Button */}
-                                        <div className="flex items-center justify-between">
-                                            {item.url ? (
-                                                <a
-                                                    href={item.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-sm group/link"
-                                                >
-                                                    Read Article
-                                                    <svg className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                                    </svg>
-                                                </a>
-                                            ) : (
-                                                <span className="text-gray-400 text-sm">View Details</span>
-                                            )}
-
-                                            <div className="text-2xl">
-                                                {categoryInfo.icon}
-                                            </div>
-                                        </div>
                                     </div>
-                                </article>
-                            );
-                        })}
+                                </div>
+                            </article>
+                        ))}
                 </div>
 
                 {/* No Results */}
                 {filteredMediaItems.length === 0 && (
                     <div className="text-center py-12">
-                        <div className="text-6xl mb-4">📰</div>
-                        <p className="text-gray-500 dark:text-gray-400 text-lg">
+                        <p className="text-ink-3 dark:text-dark-ink-3">
                             No media coverage found matching your criteria.
                         </p>
                     </div>
@@ -299,69 +262,54 @@ export default function MediaPage() {
 
                 {/* Featured Media Outlets */}
                 <div className="mt-16">
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-                        Featured In
-                    </h3>
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-8">
-                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                            {Array.from(new Set(mediaItems.map(item => item.source)))
-                                .slice(0, 12)
-                                .map((source, index) => (
-                                    <div key={index} className="text-center">
-                                        <div className="bg-white dark:bg-gray-600 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                                            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                                {source}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                        </div>
+                    <SectionHeader title="Featured In" />
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-t border-l border-line dark:border-dark-line">
+                        {Array.from(new Set(mediaItems.map(item => item.source)))
+                            .slice(0, 12)
+                            .map((source, index) => (
+                                <div
+                                    key={index}
+                                    className="border-b border-r border-line dark:border-dark-line px-4 py-5 flex items-center justify-center text-center hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors"
+                                >
+                                    <span className="font-mono text-xs uppercase tracking-wider text-ink-2 dark:text-dark-ink-2">
+                                        {source}
+                                    </span>
+                                </div>
+                            ))}
                     </div>
                 </div>
 
                 {/* Stats Summary */}
-                <div className="mt-16 text-center">
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                            Media Coverage Summary
-                        </h3>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-blue-600 mb-2">
-                                    {mediaItems.length}
-                                </div>
-                                <div className="text-sm text-gray-600 dark:text-gray-400">
-                                    Total Coverage
-                                </div>
+                <div className="mt-16">
+                    <SectionHeader title="Coverage Summary" />
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div className="border-t border-line dark:border-dark-line pt-4">
+                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
+                                {mediaItems.length}
                             </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-blue-600 mb-2">
-                                    {mediaItems.filter(m => m.category === 'interview').length}
-                                </div>
-                                <div className="text-sm text-gray-600 dark:text-gray-400">
-                                    Interviews
-                                </div>
+                            <MonoLabel>Total Coverage</MonoLabel>
+                        </div>
+                        <div className="border-t border-line dark:border-dark-line pt-4">
+                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
+                                {mediaItems.filter(m => m.category === 'interview').length}
                             </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-green-600 mb-2">
-                                    {new Set(mediaItems.map(m => m.source)).size}
-                                </div>
-                                <div className="text-sm text-gray-600 dark:text-gray-400">
-                                    Media Outlets
-                                </div>
+                            <MonoLabel>Interviews</MonoLabel>
+                        </div>
+                        <div className="border-t border-line dark:border-dark-line pt-4">
+                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
+                                {new Set(mediaItems.map(m => m.source)).size}
                             </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-red-600 mb-2">
-                                    {mediaItems.filter(m => m.category === 'news').length}
-                                </div>
-                                <div className="text-sm text-gray-600 dark:text-gray-400">
-                                    News Articles
-                                </div>
+                            <MonoLabel>Media Outlets</MonoLabel>
+                        </div>
+                        <div className="border-t border-line dark:border-dark-line pt-4">
+                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
+                                {mediaItems.filter(m => m.category === 'news').length}
                             </div>
+                            <MonoLabel>News Articles</MonoLabel>
                         </div>
                     </div>
 
-                    <p className="text-gray-600 dark:text-gray-400 mt-4">
+                    <p className="mt-10 font-mono text-xs uppercase tracking-widest text-ink-3 dark:text-dark-ink-3">
                         Showing {filteredMediaItems.length} of {mediaItems.length} media items
                     </p>
                 </div>

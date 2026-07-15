@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { FiExternalLink, FiFileText, FiArrowRight } from 'react-icons/fi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import SectionHeader from '@/components/ui/SectionHeader';
 
 export default function PublicationsSection() {
     const [publications, setPublications] = useState<any[]>([]);
@@ -24,7 +25,7 @@ export default function PublicationsSection() {
         return `/publications`;
     };
 
-    const handleCardClick = useCallback((pub: any) => {
+    const handleRowClick = useCallback((pub: any) => {
         const url = resolveLink(pub);
         if (!url) return;
         if (url.startsWith('http://') || url.startsWith('https://')) {
@@ -35,79 +36,81 @@ export default function PublicationsSection() {
     }, [router]);
 
     return (
-        <section id="publications" className="py-12 md:py-24 bg-white dark:bg-gray-900">
-            <div className="container mx-auto px-6 lg:px-12">
+        <section id="publications" className="py-10 md:py-14">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-12 gap-4"
                 >
-                    <div>
-                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                            Recent Publications
-                        </h2>
-                        <div className="w-20 h-1 bg-blue-600 rounded-full" />
-                    </div>
-                    <Link href="/publications" className="text-sm md:text-base text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300 transition-colors flex items-center gap-2">
-                        View All Publications <FiArrowRight />
-                    </Link>
+                    <SectionHeader
+                        title="Recent Publications"
+                        count={publications.length > 0 ? `${publications.length} total` : undefined}
+                        action={
+                            <Link href="/publications" className="shrink-0 text-sm text-accent dark:text-dark-accent font-semibold hover:opacity-70 transition-opacity flex items-center gap-1.5">
+                                View all <FiArrowRight />
+                            </Link>
+                        }
+                    />
                 </motion.div>
 
-                <div className="space-y-4 md:space-y-6">
+                <div>
                     {publications.slice(0, 5).map((pub, index) => (
-                        <motion.button
+                        <motion.div
                             key={pub.id}
-                            onClick={() => handleCardClick(pub)}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            onClick={() => handleRowClick(pub)}
+                            onKeyDown={(e) => { if (e.key === 'Enter') handleRowClick(pub); }}
+                            role="link"
+                            tabIndex={0}
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="text-left w-full group bg-gray-50 dark:bg-gray-800 rounded-xl p-4 md:p-6 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            transition={{ delay: index * 0.06 }}
+                            className="cursor-pointer text-left w-full group relative flex gap-5 md:gap-8 items-baseline py-4 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
                         >
-                            <div className="flex flex-col md:flex-row gap-6 items-start">
-                                <div className="flex-1">
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                        {pub.title}
-                                    </h3>
-                                    <p className="text-gray-600 dark:text-gray-400 mb-2 text-sm">
-                                        {pub.authors}
-                                    </p>
-                                    <div className="flex flex-wrap gap-3 text-sm">
-                                        <span className="font-medium text-blue-600 dark:text-blue-400">
-                                            {pub.journal}
-                                        </span>
-                                        <span className="text-gray-400">|</span>
-                                        <span className="text-gray-500 dark:text-gray-500">{pub.year}</span>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-3 shrink-0">
-                                    {pub.doi && (
-                                        <a
-                                            href={`https://doi.org/${pub.doi}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-all"
-                                            title="DOI"
-                                        >
-                                            <FiExternalLink size={20} />
-                                        </a>
-                                    )}
-                                    {pub.arxiv && (
-                                        <a
-                                            href={pub.arxiv}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-all"
-                                            title="arXiv"
-                                        >
-                                            <FiFileText size={20} />
-                                        </a>
-                                    )}
-                                </div>
+                            <span aria-hidden className="absolute left-0 top-3 bottom-3 w-[2px] bg-ink dark:bg-dark-ink opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <span className="font-mono text-xs text-accent dark:text-dark-accent shrink-0 w-14">
+                                {pub.year}
+                            </span>
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-base font-semibold text-ink dark:text-dark-ink mb-1 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors">
+                                    {pub.title}
+                                </h3>
+                                <p className="text-sm text-ink-3 dark:text-dark-ink-3 mb-1 truncate">
+                                    {pub.authors}
+                                </p>
+                                <span className="text-sm italic text-ink-2 dark:text-dark-ink-2">
+                                    {pub.journal}
+                                </span>
                             </div>
-                        </motion.button>
+
+                            <div className="flex gap-1 shrink-0 self-center">
+                                {pub.doi && (
+                                    <a
+                                        href={`https://doi.org/${pub.doi}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="p-2 text-ink-3 dark:text-dark-ink-3 hover:text-accent dark:hover:text-dark-accent transition-colors"
+                                        title="DOI"
+                                    >
+                                        <FiExternalLink size={17} />
+                                    </a>
+                                )}
+                                {pub.arxiv && (
+                                    <a
+                                        href={pub.arxiv}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="p-2 text-ink-3 dark:text-dark-ink-3 hover:text-accent dark:hover:text-dark-accent transition-colors"
+                                        title="arXiv"
+                                    >
+                                        <FiFileText size={17} />
+                                    </a>
+                                )}
+                            </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

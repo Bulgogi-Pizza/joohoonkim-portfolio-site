@@ -26,15 +26,15 @@ export default function ResearchIndex() {
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900 flex justify-center items-center">
-                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-blue-600"></div>
+            <div className="min-h-screen flex justify-center items-center">
+                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-accent dark:border-dark-accent dark:border-t-transparent rounded-full"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen pt-16 bg-white dark:bg-gray-900 flex justify-center items-center">
-            <p>No research areas found.</p>
+        <div className="min-h-screen flex justify-center items-center">
+            <p className="text-ink-2 dark:text-dark-ink-2">No research areas found.</p>
         </div>
     );
 }

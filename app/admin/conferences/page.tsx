@@ -11,6 +11,7 @@ interface Conference {
     date: string;
     presentation_type?: string;
     award?: string;
+    order_index?: number;
 }
 
 export default function ConferencesAdmin() {
@@ -87,6 +88,7 @@ export default function ConferencesAdmin() {
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Venue</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Date</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Type</th>
+                            <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Order</th>
                             <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Actions</th>
                         </tr>
                     </thead>
@@ -97,6 +99,7 @@ export default function ConferencesAdmin() {
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{item.conference_name}</td>
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{item.date}</td>
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{item.presentation_type || '-'}</td>
+                                <td className="px-6 py-4 text-center text-sm text-gray-900 dark:text-white">{item.order_index ?? '-'}</td>
                                 <td className="px-6 py-4 text-right space-x-2">
                                     <button onClick={() => { setEditing(item); setShowModal(true); }} className="text-blue-600 dark:text-blue-400 hover:underline">Edit</button>
                                     <button onClick={() => item.id && handleDelete(item.id)} className="text-red-600 dark:text-red-400 hover:underline">Delete</button>
@@ -151,6 +154,10 @@ function Modal({ item, onSave, onClose }: { item: Conference; onSave: (item: Con
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Award</label>
                             <input type="text" value={formData.award || ''} onChange={(e) => setFormData({ ...formData, award: e.target.value })} className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
                         </div>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Order</label>
+                        <input type="number" value={formData.order_index ?? ''} onChange={(e) => setFormData({ ...formData, order_index: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="클수록 위, 비면 자동(ID)" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
                     </div>
                     <div className="flex justify-end gap-4 pt-4">
                         <button type="button" onClick={onClose} className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>

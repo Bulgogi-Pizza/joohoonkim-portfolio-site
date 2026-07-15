@@ -1,7 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { FiExternalLink } from 'react-icons/fi';
 import ResearchHighlightsSection from './ResearchHighlightsSection';
+import SectionHeader from '@/components/ui/SectionHeader';
+import MonoLabel from '@/components/ui/MonoLabel';
 
 interface Publication {
     id: number;
@@ -21,13 +24,8 @@ interface Publication {
 export default function PublicationsPage() {
     const [publications, setPublications] = useState<Publication[]>([]);
     const [loading, setLoading] = useState(true);
-    const [filters, setFilters] = useState({
-        year: '',
-        category: '',
-        status: ''
-    });
+    const [yearFilter, setYearFilter] = useState('');
     const [availableYears, setAvailableYears] = useState<string[]>([]);
-    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         Promise.all([
@@ -48,39 +46,24 @@ export default function PublicationsPage() {
             });
     }, []);
 
-    // Filtered data load (simulated on client for now as API returns all)
-    // In a real scenario with backend filtering, we would fetch again.
-    // But since we are using mock data, we can filter on client or assume API handles it.
-    // For now, let's filter on client side to match the mock API behavior which returns all.
-
-    const filteredPublications = publications.filter(pub => {
-        const matchesYear = !filters.year || pub.year === filters.year;
-        const matchesSearch = !searchTerm ||
-            pub.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            pub.authors.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            pub.journal.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchesYear && matchesSearch;
-    });
+    const filteredPublications = publications.filter(pub =>
+        !yearFilter || pub.year === yearFilter
+    );
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-8 py-24">
-                    <div className="text-center">
-                        <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-blue-600 mx-auto mb-4"></div>
-                        <p className="text-gray-600 dark:text-gray-400">Loading...</p>
-                    </div>
-                </div>
+            <div className="min-h-screen flex justify-center items-center">
+                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-accent dark:border-dark-accent dark:border-t-transparent rounded-full"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-            <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[1600px]">
-                {/* Header */}
-                <div className="mb-6 sm:mb-8 text-center">
-                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="min-h-screen">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
+                {/* Page Header */}
+                <div className="mb-10">
+                    <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
                         Publications
                     </h1>
                 </div>
@@ -88,97 +71,99 @@ export default function PublicationsPage() {
                 {/* Research Highlights */}
                 <ResearchHighlightsSection />
 
-                <div className="text-center mb-6 sm:mb-8">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                        Full list of publications
-                    </h2>
-                </div>
+                <SectionHeader
+                    title="Full List"
+                    count={`${filteredPublications.length} papers`}
+                />
 
                 {/* Year Filter */}
-                <div className="mb-6 sm:mb-8 -mx-2">
-                    <div className="flex gap-2 px-2 overflow-x-auto no-scrollbar">
+                <div className="mb-10 -mx-6 px-6 lg:mx-0 lg:px-0">
+                    <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
                         <button
-                            onClick={() => setFilters({ ...filters, year: '' })}
-                            className={`px-3 py-2 text-sm rounded-md whitespace-nowrap transition ${filters.year === ''
-                                ? 'bg-blue-600 text-white'
-                                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                            onClick={() => setYearFilter('')}
+                            className={`shrink-0 px-3.5 py-1.5 rounded-[3px] border font-mono text-xs uppercase tracking-wider transition-colors ${yearFilter === ''
+                                ? 'bg-ink border-ink text-white dark:bg-dark-ink dark:border-dark-ink dark:text-dark-bg font-semibold'
+                                : 'border-line dark:border-dark-line text-ink-2 dark:text-dark-ink-2 hover:border-ink dark:hover:border-white/40'
                                 }`}
-                        >ALL
+                        >
+                            All
                         </button>
                         {availableYears.map(year => (
                             <button
                                 key={year}
-                                onClick={() => setFilters({ ...filters, year: year.toString() })}
-                                className={`px-3 py-2 text-sm rounded-md whitespace-nowrap transition ${filters.year === year.toString()
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                onClick={() => setYearFilter(year.toString())}
+                                className={`shrink-0 px-3.5 py-1.5 rounded-[3px] border font-mono text-xs uppercase tracking-wider transition-colors ${yearFilter === year.toString()
+                                    ? 'bg-ink border-ink text-white dark:bg-dark-ink dark:border-dark-ink dark:text-dark-bg font-semibold'
+                                    : 'border-line dark:border-dark-line text-ink-2 dark:text-dark-ink-2 hover:border-ink dark:hover:border-white/40'
                                     }`}
-                            >{year}</button>
+                            >
+                                {year}
+                            </button>
                         ))}
                     </div>
                 </div>
 
-                {/* Total Count */}
-                <div className="mb-6">
-                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                        Total {filteredPublications.length} publications
-                    </p>
-                </div>
-
-                {/* Publications List */}
+                {/* Publications List by Year */}
                 {availableYears.filter(y => filteredPublications.some(p => p.year === y)).map(year => (
-                    <div key={year} className="mb-10 sm:mb-16">
-                        <div className="mb-2">
-                            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">{year}</h2>
-                            <div className="w-full h-px bg-gray-300 dark:bg-gray-600" />
+                    <div key={year} className="mb-12">
+                        <div className="flex items-baseline gap-3 mb-3">
+                            <h2 className="font-heading text-2xl font-bold tracking-tight text-ink dark:text-dark-ink">
+                                {year}
+                            </h2>
+                            <MonoLabel>
+                                {String(filteredPublications.filter(p => p.year === year).length).padStart(2, '0')}
+                            </MonoLabel>
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="border-t border-line dark:border-dark-line">
                             {filteredPublications.filter(p => p.year === year).map((pub) => (
                                 <article
                                     key={pub.id}
-                                    className="flex gap-4 sm:gap-6 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-200 py-4 px-2 sm:px-0 relative"
+                                    className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors"
                                 >
+                                    <span aria-hidden className="absolute left-0 top-4 bottom-4 w-[2px] bg-ink dark:bg-dark-ink opacity-0 group-hover:opacity-100 transition-opacity" />
                                     {/* Numbering */}
-                                    <div className="w-10 sm:w-16 text-center pr-3 sm:pr-4 border-r border-gray-300 dark:border-gray-600 flex-shrink-0 flex items-start justify-center pt-1.5">
-                                        <span className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{pub.number}</span>
-                                    </div>
+                                    <span className="font-mono text-xs text-accent dark:text-dark-accent shrink-0 w-8 pt-1 text-right">
+                                        {pub.number}
+                                    </span>
 
                                     {/* Content */}
                                     <div className="flex-1 min-w-0">
-                                        <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 sm:mb-2 leading-snug safe-wrap">
+                                        <h3 className="text-base font-semibold text-ink dark:text-dark-ink mb-1.5 leading-snug">
                                             {pub.title}
                                         </h3>
 
-                                        <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-2 leading-relaxed safe-wrap">
+                                        <p className="text-sm text-ink-3 dark:text-dark-ink-3 mb-1.5 leading-relaxed">
                                             {pub.authors}
                                         </p>
 
-                                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-2">
-                                            <span className="font-medium italic text-blue-600 dark:text-blue-400">{pub.journal}</span>
-                                            {pub.volume && <span className="font-semibold">• {pub.volume}</span>}
-                                            {pub.pages && <span>• {pub.pages}</span>}
-                                            <span>• {pub.year}</span>
+                                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                            <span className="italic font-medium">{pub.journal}</span>
+                                            {pub.volume && <span className="font-semibold">{pub.volume}</span>}
+                                            {pub.pages && <span>, {pub.pages}</span>}
                                         </div>
 
                                         {pub.featured_info && (
-                                            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{pub.featured_info}</p>
-                                        )}
-
-                                        {/* Link */}
-                                        {(pub.doi || pub.arxiv) && (
-                                            <div className="mt-3 sm:mt-0 sm:absolute sm:bottom-4 sm:right-4">
-                                                <a
-                                                    href={pub.doi ? `https://doi.org/${pub.doi}` : pub.arxiv}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="inline-flex items-center px-3 py-1 text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 border border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors whitespace-nowrap"
-                                                >
-                                                    🔗 LINK
-                                                </a>
-                                            </div>
+                                            <p className="mt-1.5 text-xs text-ink-3 dark:text-dark-ink-3">
+                                                {pub.featured_info}
+                                            </p>
                                         )}
                                     </div>
+
+                                    {/* Link */}
+                                    {(pub.doi || pub.arxiv) && (
+                                        <div className="shrink-0 self-center">
+                                            <a
+                                                href={pub.doi ? `https://doi.org/${pub.doi}` : pub.arxiv}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="p-2 inline-flex text-ink-3 dark:text-dark-ink-3 hover:text-accent dark:hover:text-dark-accent transition-colors"
+                                                title={pub.doi ? 'DOI' : 'arXiv'}
+                                            >
+                                                <FiExternalLink size={17} />
+                                            </a>
+                                        </div>
+                                    )}
                                 </article>
                             ))}
                         </div>
@@ -187,7 +172,7 @@ export default function PublicationsPage() {
 
                 {filteredPublications.length === 0 && (
                     <div className="text-center py-12">
-                        <p className="text-gray-500 dark:text-gray-400">No publications found matching your criteria.</p>
+                        <p className="text-ink-3 dark:text-dark-ink-3">No publications found matching your criteria.</p>
                     </div>
                 )}
             </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import MonoLabel from '@/components/ui/MonoLabel';
 
 interface Award {
     id: number;
@@ -10,6 +11,7 @@ interface Award {
     year: string;
     location?: string;
     description?: string;
+    order_index?: number;
 }
 
 export default function AwardsPage() {
@@ -42,89 +44,74 @@ export default function AwardsPage() {
         return matchesYear && matchesSearch;
     });
 
-    // Sort by year (descending)
-    const sortedAwards = [...filteredAwards].sort((a, b) => {
-        if (b.year !== a.year) {
-            return parseInt(b.year) - parseInt(a.year);
-        }
-        return b.id - a.id;
-    });
+    // 관리자가 지정한 order_index 내림차순 (클수록 위, 미지정은 맨 뒤)
+    const sortedAwards = [...filteredAwards].sort((a, b) =>
+        (b.order_index ?? -Infinity) - (a.order_index ?? -Infinity)
+    );
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-8 py-24">
-                    <div className="text-center">
-                        <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-blue-600 mx-auto mb-4"></div>
-                        <p className="text-gray-600 dark:text-gray-400">Loading...</p>
-                    </div>
-                </div>
+            <div className="min-h-screen flex justify-center items-center">
+                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-accent dark:border-dark-accent dark:border-t-transparent rounded-full"></div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-8 py-24">
-                    <div className="text-center">
-                        <p className="text-gray-600 dark:text-gray-400">{error}</p>
-                    </div>
-                </div>
+            <div className="min-h-screen flex justify-center items-center">
+                <p className="text-ink-3 dark:text-dark-ink-3">{error}</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-            <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[1600px]">
-                {/* Header */}
-                <div className="mb-8 text-center">
-                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">Awards</h1>
+        <div className="min-h-screen">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
+                {/* Page Header */}
+                <div className="mb-10">
+                    <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
+                        Awards
+                    </h1>
                 </div>
 
                 {/* Total Count */}
                 <div className="mb-6">
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <MonoLabel>
                         Total {filteredAwards.length} awards
-                    </p>
+                    </MonoLabel>
                 </div>
 
                 {/* Awards List */}
-                <div className="space-y-1">
-                    {sortedAwards.map((award, index) => (
+                <div className="border-t border-line dark:border-dark-line">
+                    {sortedAwards.map((award) => (
                         <article
                             key={award.id}
-                            className="flex gap-3 sm:gap-4 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-200 py-4 px-2"
+                            className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors"
                         >
-                            <div className="w-8 sm:w-10 flex-shrink-0 flex items-start justify-center pt-1.5">
-                                <span className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">{index + 1}</span>
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 leading-snug">{award.title}</h3>
-                                <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-gray-700 dark:text-gray-300">
-                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                                        {award.organization}
-                                        {award.location && `, ${award.location}`}
+                            <span aria-hidden className="absolute left-0 top-4 bottom-4 w-[2px] bg-ink dark:bg-dark-ink opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                            {/* Year */}
+                            <span className="font-mono text-xs uppercase tracking-widest text-accent dark:text-dark-accent shrink-0 w-10 pt-1 text-right">
+                                {award.year}
+                            </span>
+
+                            {/* Content */}
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-base font-semibold text-ink dark:text-dark-ink mb-1.5 leading-snug">
+                                    {award.title}
+                                </h3>
+
+                                <p className="text-sm text-ink-2 dark:text-dark-ink-2 leading-relaxed">
+                                    {award.organization}
+                                    {award.location && `, ${award.location}`}
+                                </p>
+
+                                {award.description && (
+                                    <p className="mt-1.5 text-sm text-ink-3 dark:text-dark-ink-3 leading-relaxed">
+                                        {award.description}
                                     </p>
-
-                                    {award.year && (
-                                        <>
-                                            <span className="text-gray-400">•</span>
-                                            <span className="font-semibold text-blue-600 dark:text-blue-400">
-                                                {award.year}
-                                            </span>
-                                        </>
-                                    )}
-
-                                    {award.description && (
-                                        <div className="text-gray-600 dark:text-gray-400">
-                                            <p className="leading-relaxed text-sm">
-                                                {award.description}
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
+                                )}
                             </div>
                         </article>
                     ))}
@@ -133,7 +120,7 @@ export default function AwardsPage() {
                 {/* No Results */}
                 {sortedAwards.length === 0 && (
                     <div className="text-center py-12">
-                        <p className="text-gray-500 dark:text-gray-400 text-lg">
+                        <p className="text-ink-3 dark:text-dark-ink-3">
                             No awards found matching your criteria.
                         </p>
                     </div>

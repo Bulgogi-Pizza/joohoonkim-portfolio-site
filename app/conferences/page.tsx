@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import MonoLabel from '@/components/ui/MonoLabel';
+import Tag from '@/components/ui/Tag';
 
 interface Conference {
     id: number;
@@ -9,6 +11,7 @@ interface Conference {
     date: string;
     presentation_type?: string;
     award?: string;
+    order_index?: number;
     year?: number;
     month?: number;
 }
@@ -62,16 +65,10 @@ export default function ConferencesPage() {
         return matchesYear && matchesSearch;
     });
 
-    // Sort by year (descending)
-    const sortedConferences = [...filteredConferences].sort((a, b) => {
-        if (b.year !== a.year) {
-            return (b.year || 0) - (a.year || 0);
-        }
-        if (b.month !== a.month) {
-            return (b.month || 0) - (a.month || 0);
-        }
-        return b.id - a.id;
-    });
+    // 관리자가 지정한 order_index 내림차순 (클수록 위, 미지정은 맨 뒤)
+    const sortedConferences = [...filteredConferences].sort((a, b) =>
+        (b.order_index ?? -Infinity) - (a.order_index ?? -Infinity)
+    );
 
     // Month name helper
     const getMonthName = (monthNum?: number) => {
@@ -85,102 +82,80 @@ export default function ConferencesPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-8 py-24">
-                    <div className="text-center">
-                        <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-blue-600 mx-auto mb-4"></div>
-                        <p className="text-gray-600 dark:text-gray-400">Loading...</p>
-                    </div>
-                </div>
+            <div className="min-h-screen flex justify-center items-center">
+                <div className="animate-spin h-8 w-8 border-2 border-t-transparent border-accent dark:border-dark-accent dark:border-t-transparent rounded-full"></div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-                <div className="container mx-auto px-8 py-24">
-                    <div className="text-center">
-                        <p className="text-gray-600 dark:text-gray-400">{error}</p>
-                    </div>
-                </div>
+            <div className="min-h-screen flex justify-center items-center">
+                <p className="text-ink-3 dark:text-dark-ink-3">{error}</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen pt-16 bg-white dark:bg-gray-900">
-            <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-40 py-10 sm:py-12 max-w-[1600px]">
-
-                {/* Header */}
-                <div className="mb-8 text-center">
-                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">Talks</h1>
-                </div>
-
-                {/* Total Count */}
-                <div className="mb-6">
-                    <p className="text-gray-600 dark:text-gray-400">
-                        Total {filteredConferences.length} talks
-                    </p>
+        <div className="min-h-screen">
+            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
+                {/* Page Header */}
+                <div className="mb-10">
+                    <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
+                        Talks
+                    </h1>
+                    <div className="pt-4">
+                        <MonoLabel>
+                            {String(filteredConferences.length).padStart(2, '0')} talks
+                        </MonoLabel>
+                    </div>
                 </div>
 
                 {/* Conferences List */}
-                <div className="space-y-1">
-                    {sortedConferences.map((conference, index) => (
+                <div className="border-t border-line dark:border-dark-line">
+                    {sortedConferences.map((conference) => (
                         <article
                             key={conference.id}
-                            className="flex gap-3 sm:gap-4 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-200 py-4 px-2"
+                            className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors"
                         >
-                            <div className="w-8 sm:w-10 flex-shrink-0 flex items-start justify-center pt-1.5">
-                                <span className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">{index + 1}</span>
+                            <span aria-hidden className="absolute left-0 top-4 bottom-4 w-[2px] bg-ink dark:bg-dark-ink opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                            {/* Date */}
+                            <div className="shrink-0 w-12 pt-1 flex flex-col items-end gap-0.5 text-right">
+                                {conference.year && (
+                                    <span className="font-mono text-xs tracking-widest text-accent dark:text-dark-accent">
+                                        {conference.year}
+                                    </span>
+                                )}
+                                {conference.month && (
+                                    <span className="font-mono text-xs uppercase tracking-widest text-ink-3 dark:text-dark-ink-3">
+                                        {getMonthName(conference.month)}
+                                    </span>
+                                )}
                             </div>
-                            <div className="flex-1">
-                                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1 leading-snug safe-wrap">
+
+                            {/* Content */}
+                            <div className="flex-1 min-w-0">
+                                <h3 className="text-base font-semibold text-ink dark:text-dark-ink mb-1.5 leading-snug">
                                     {conference.conference_name}
                                 </h3>
-                                <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">
 
-                                    {/* Location */}
-                                    <span>{conference.location}</span>
+                                <p className="text-sm text-ink-2 dark:text-dark-ink-2 leading-relaxed">
+                                    {conference.location}
+                                </p>
 
-                                    {/* Month */}
-                                    {conference.month && (
-                                        <>
-                                            <span className="text-gray-400">•</span>
-                                            <span>{getMonthName(conference.month)}</span>
-                                        </>
-                                    )}
-
-                                    {/* Year */}
-                                    {conference.year && (
-                                        <>
-                                            <span className="text-gray-400">•</span>
-                                            <span className="font-medium text-blue-600 dark:text-blue-400">
-                                                {conference.year}
-                                            </span>
-                                        </>
-                                    )}
-
-                                    {/* Presentation Type */}
-                                    {conference.presentation_type && (
-                                        <>
-                                            <span className="text-gray-400">•</span>
-                                            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-medium uppercase tracking-wide">
-                                                {conference.presentation_type}
-                                            </span>
-                                        </>
-                                    )}
-
-                                    {/* Award */}
-                                    {conference.award && (
-                                        <>
-                                            <span className="text-gray-400">•</span>
-                                            <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 text-xs font-medium">
+                                {(conference.presentation_type || conference.award) && (
+                                    <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                                        {conference.presentation_type && (
+                                            <Tag>{conference.presentation_type}</Tag>
+                                        )}
+                                        {conference.award && (
+                                            <MonoLabel color="accent">
                                                 {conference.award}
-                                            </span>
-                                        </>
-                                    )}
-                                </div>
+                                            </MonoLabel>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </article>
                     ))}
@@ -189,7 +164,7 @@ export default function ConferencesPage() {
                 {/* No Results */}
                 {sortedConferences.length === 0 && (
                     <div className="text-center py-12">
-                        <p className="text-gray-500 dark:text-gray-400 text-lg">
+                        <p className="text-ink-3 dark:text-dark-ink-3">
                             No talks found matching your criteria.
                         </p>
                     </div>
