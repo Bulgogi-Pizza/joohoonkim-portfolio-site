@@ -303,11 +303,11 @@ export default function CVPage() {
                                         <h3 className="text-base font-semibold text-ink dark:text-dark-ink mb-1.5 leading-snug">
                                             {pub.title}
                                         </h3>
-                                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                        <div className="flex flex-wrap items-center gap-y-1 text-sm text-ink-2 dark:text-dark-ink-2">
                                             <span className="italic font-medium">{pub.journal}</span>
-                                            {pub.volume && <span className="font-semibold">{pub.volume}</span>}
+                                            {pub.volume && <span className="font-semibold">&nbsp;{pub.volume}</span>}
                                             {pub.pages && <span>, {pub.pages}</span>}
-                                            {pub.year && <span>({pub.year})</span>}
+                                            {pub.year && <span>&nbsp;({pub.year})</span>}
                                             {pub.status && pub.status !== 'published' && (
                                                 <span className="text-ink-3 dark:text-dark-ink-3">
                                                     [{pub.status === 'in-press' ? 'In press' : pub.status === 'under-submission' ? 'Under submission' : pub.status}]

@@ -128,9 +128,9 @@ export default function PublicationsPage() {
                                             {pub.authors}
                                         </p>
 
-                                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-2 dark:text-dark-ink-2">
+                                        <div className="flex flex-wrap items-center gap-y-1 text-sm text-ink-2 dark:text-dark-ink-2">
                                             <span className="italic font-medium">{pub.journal}</span>
-                                            {pub.volume && <span className="font-semibold">{pub.volume}</span>}
+                                            {pub.volume && <span className="font-semibold">&nbsp;{pub.volume}</span>}
                                             {pub.pages && <span>, {pub.pages}</span>}
                                         </div>
 
