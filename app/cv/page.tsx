@@ -291,7 +291,7 @@ export default function CVPage() {
                         </div>
                     </CVSection>
 
-                    <CVSection title="Selected Publications" link="/publications">
+                    <CVSection title="Selected Publications (First & Corresponding Author)" link="/publications">
                         <div className="border-t border-line dark:border-dark-line">
                             {publications.map(pub => (
                                 <article key={pub.id} className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors">
