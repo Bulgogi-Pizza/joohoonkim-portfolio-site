@@ -41,10 +41,7 @@ export default function ResearchSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                 >
-                    <SectionHeader
-                        title="Research Areas"
-                        count={researchAreas.length > 0 ? `${String(researchAreas.length).padStart(2, '0')} areas` : undefined}
-                    />
+                    <SectionHeader title="Research Areas" />
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">

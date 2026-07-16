@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 import ResearchHighlightsSection from './ResearchHighlightsSection';
 import SectionHeader from '@/components/ui/SectionHeader';
-import MonoLabel from '@/components/ui/MonoLabel';
 
 interface Publication {
     id: number;
@@ -71,10 +70,7 @@ export default function PublicationsPage() {
                 {/* Research Highlights */}
                 <ResearchHighlightsSection />
 
-                <SectionHeader
-                    title="Full List"
-                    count={`${filteredPublications.length} papers`}
-                />
+                <SectionHeader title="Full List" />
 
                 {/* Year Filter */}
                 <div className="mb-10 -mx-6 px-6 lg:mx-0 lg:px-0">
@@ -106,14 +102,9 @@ export default function PublicationsPage() {
                 {/* Publications List by Year */}
                 {availableYears.filter(y => filteredPublications.some(p => p.year === y)).map(year => (
                     <div key={year} className="mb-12">
-                        <div className="flex items-baseline gap-3 mb-3">
-                            <h2 className="font-heading text-2xl font-bold tracking-tight text-ink dark:text-dark-ink">
-                                {year}
-                            </h2>
-                            <MonoLabel>
-                                {String(filteredPublications.filter(p => p.year === year).length).padStart(2, '0')}
-                            </MonoLabel>
-                        </div>
+                        <h2 className="font-heading text-2xl font-bold tracking-tight text-ink dark:text-dark-ink mb-3">
+                            {year}
+                        </h2>
 
                         <div className="border-t border-line dark:border-dark-line">
                             {filteredPublications.filter(p => p.year === year).map((pub) => (

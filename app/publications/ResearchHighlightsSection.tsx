@@ -52,10 +52,7 @@ export default function ResearchHighlightsSection() {
 
     return (
         <section className="mb-12 sm:mb-16">
-            <SectionHeader
-                title="Research Highlights"
-                count={`${String(items.length).padStart(2, '0')} items`}
-            />
+            <SectionHeader title="Research Highlights" />
 
             <HorizontalGallery
                 items={items}

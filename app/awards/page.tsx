@@ -44,10 +44,13 @@ export default function AwardsPage() {
         return matchesYear && matchesSearch;
     });
 
-    // 관리자가 지정한 order_index 내림차순 (클수록 위, 미지정은 맨 뒤)
-    const sortedAwards = [...filteredAwards].sort((a, b) =>
-        (b.order_index ?? -Infinity) - (a.order_index ?? -Infinity)
-    );
+    // 관리자가 지정한 order_index 내림차순 (클수록 위 — 새 항목은 최고 id/order라 맨 위, 미지정은 맨 뒤)
+    const sortedAwards = [...filteredAwards].sort((a, b) => {
+        if (a.order_index == null && b.order_index == null) return 0;
+        if (a.order_index == null) return 1;
+        if (b.order_index == null) return -1;
+        return b.order_index - a.order_index;
+    });
 
     if (loading) {
         return (
@@ -73,13 +76,11 @@ export default function AwardsPage() {
                     <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
                         Awards
                     </h1>
-                </div>
-
-                {/* Total Count */}
-                <div className="mb-6">
-                    <MonoLabel>
-                        Total {filteredAwards.length} awards
-                    </MonoLabel>
+                    <div className="pt-4">
+                        <MonoLabel>
+                            Total {filteredAwards.length} awards
+                        </MonoLabel>
+                    </div>
                 </div>
 
                 {/* Awards List */}

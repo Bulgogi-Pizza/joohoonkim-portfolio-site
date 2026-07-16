@@ -104,22 +104,6 @@ export default function MediaPage() {
                         Featured stories, interviews, and media coverage highlighting
                         breakthrough research and scientific achievements
                     </p>
-
-                    {/* Stats */}
-                    <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-                        <MonoLabel>
-                            <span className="text-accent dark:text-dark-accent font-semibold">{mediaItems.length}</span> Total Coverage
-                        </MonoLabel>
-                        <MonoLabel>
-                            <span className="text-accent dark:text-dark-accent font-semibold">{mediaItems.filter(m => m.category === 'interview').length}</span> Interviews
-                        </MonoLabel>
-                        <MonoLabel>
-                            <span className="text-accent dark:text-dark-accent font-semibold">{new Set(mediaItems.map(m => m.source)).size}</span> Media Outlets
-                        </MonoLabel>
-                        <MonoLabel>
-                            <span className="text-accent dark:text-dark-accent font-semibold">{years.length}</span> Years Active
-                        </MonoLabel>
-                    </div>
                 </div>
 
                 {/* Search & Filter */}
@@ -177,10 +161,7 @@ export default function MediaPage() {
                     </button>
                 </div>
 
-                <SectionHeader
-                    title="Coverage"
-                    count={`${filteredMediaItems.length} items`}
-                />
+                <SectionHeader title="Coverage" />
 
                 {/* Media Items Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -279,40 +260,6 @@ export default function MediaPage() {
                     </div>
                 </div>
 
-                {/* Stats Summary */}
-                <div className="mt-16">
-                    <SectionHeader title="Coverage Summary" />
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div className="border-t border-line dark:border-dark-line pt-4">
-                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
-                                {mediaItems.length}
-                            </div>
-                            <MonoLabel>Total Coverage</MonoLabel>
-                        </div>
-                        <div className="border-t border-line dark:border-dark-line pt-4">
-                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
-                                {mediaItems.filter(m => m.category === 'interview').length}
-                            </div>
-                            <MonoLabel>Interviews</MonoLabel>
-                        </div>
-                        <div className="border-t border-line dark:border-dark-line pt-4">
-                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
-                                {new Set(mediaItems.map(m => m.source)).size}
-                            </div>
-                            <MonoLabel>Media Outlets</MonoLabel>
-                        </div>
-                        <div className="border-t border-line dark:border-dark-line pt-4">
-                            <div className="font-heading text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-1">
-                                {mediaItems.filter(m => m.category === 'news').length}
-                            </div>
-                            <MonoLabel>News Articles</MonoLabel>
-                        </div>
-                    </div>
-
-                    <p className="mt-10 font-mono text-xs uppercase tracking-widest text-ink-3 dark:text-dark-ink-3">
-                        Showing {filteredMediaItems.length} of {mediaItems.length} media items
-                    </p>
-                </div>
             </div>
         </div>
     );

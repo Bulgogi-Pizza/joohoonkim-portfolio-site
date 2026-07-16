@@ -65,10 +65,13 @@ export default function ConferencesPage() {
         return matchesYear && matchesSearch;
     });
 
-    // 관리자가 지정한 order_index 내림차순 (클수록 위, 미지정은 맨 뒤)
-    const sortedConferences = [...filteredConferences].sort((a, b) =>
-        (b.order_index ?? -Infinity) - (a.order_index ?? -Infinity)
-    );
+    // 관리자가 지정한 order_index 내림차순 (클수록 위 — 새 항목은 최고 id/order라 맨 위, 미지정은 맨 뒤)
+    const sortedConferences = [...filteredConferences].sort((a, b) => {
+        if (a.order_index == null && b.order_index == null) return 0;
+        if (a.order_index == null) return 1;
+        if (b.order_index == null) return -1;
+        return b.order_index - a.order_index;
+    });
 
     // Month name helper
     const getMonthName = (monthNum?: number) => {
@@ -106,7 +109,7 @@ export default function ConferencesPage() {
                     </h1>
                     <div className="pt-4">
                         <MonoLabel>
-                            {String(filteredConferences.length).padStart(2, '0')} talks
+                            Total {filteredConferences.length} talks
                         </MonoLabel>
                     </div>
                 </div>

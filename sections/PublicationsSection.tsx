@@ -45,7 +45,6 @@ export default function PublicationsSection() {
                 >
                     <SectionHeader
                         title="Recent Publications"
-                        count={publications.length > 0 ? `${publications.length} total` : undefined}
                         action={
                             <Link href="/publications" className="shrink-0 text-sm text-accent dark:text-dark-accent font-semibold hover:opacity-70 transition-opacity flex items-center gap-1.5">
                                 View all <FiArrowRight />

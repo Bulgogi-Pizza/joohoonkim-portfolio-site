@@ -52,6 +52,7 @@ interface Award {
     year: string;
     rank: string | null;
     description: string | null;
+    cv_order: number | null;
 }
 
 interface Publication {
@@ -136,11 +137,10 @@ const ProfileSection = ({ profile }: { profile: CVProfile }) => {
     );
 };
 
-const CVSection = ({ title, count, link = null, children }: { title: string; count?: string; link?: string | null; children: React.ReactNode }) => (
+const CVSection = ({ title, link = null, children }: { title: string; link?: string | null; children: React.ReactNode }) => (
     <section>
         <SectionHeader
             title={title}
-            count={count}
             action={link ? (
                 <Link
                     href={link}
@@ -183,7 +183,13 @@ export default function CVPage() {
                 setProfile(profileData);
                 setEducation(eduData || []);
                 setExperience(expData || []);
-                setAwards(awardData || []);
+                // API는 cv_order 오름차순으로 주지만 CV에는 최신(큰 cv_order)이 위로 오도록 뒤집는다 (빈 값은 맨 뒤 유지)
+                setAwards([...(awardData || [])].sort((a: Award, b: Award) => {
+                    if (a.cv_order == null && b.cv_order == null) return 0;
+                    if (a.cv_order == null) return 1;
+                    if (b.cv_order == null) return -1;
+                    return b.cv_order - a.cv_order;
+                }));
                 setPublications(pubData || []);
                 setServices(serviceData || []);
             })
@@ -205,7 +211,7 @@ export default function CVPage() {
                 {profile && <ProfileSection profile={profile} />}
 
                 <main className="space-y-14 md:space-y-16">
-                    <CVSection title="Education" count={String(education.length).padStart(2, '0')}>
+                    <CVSection title="Education">
                         <div className="border-t border-line dark:border-dark-line">
                             {education.map(edu => (
                                 <div key={edu.id} className={rowClass}>
@@ -231,7 +237,7 @@ export default function CVPage() {
                         </div>
                     </CVSection>
 
-                    <CVSection title="Professional Experience" count={String(experience.length).padStart(2, '0')}>
+                    <CVSection title="Professional Experience">
                         <div className="border-t border-line dark:border-dark-line">
                             {experience.map(exp => (
                                 <div key={exp.id} className={rowClass}>
@@ -262,7 +268,7 @@ export default function CVPage() {
                         </div>
                     </CVSection>
 
-                    <CVSection title="Selective Honors and Awards" count={String(awards.length).padStart(2, '0')} link="/awards">
+                    <CVSection title="Selective Honors and Awards" link="/awards">
                         <div className="border-t border-line dark:border-dark-line">
                             {awards.map(award => (
                                 <div key={award.id} className={rowClass}>
@@ -285,7 +291,7 @@ export default function CVPage() {
                         </div>
                     </CVSection>
 
-                    <CVSection title="Selected Publications" count={String(publications.length).padStart(2, '0')} link="/publications">
+                    <CVSection title="Selected Publications" link="/publications">
                         <div className="border-t border-line dark:border-dark-line">
                             {publications.map(pub => (
                                 <article key={pub.id} className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors">
@@ -320,7 +326,7 @@ export default function CVPage() {
                     </CVSection>
 
                     {services.length > 0 && (
-                        <CVSection title="Professional Services" count={String(services.length).padStart(2, '0')}>
+                        <CVSection title="Professional Services">
                             <div className="border-t border-line dark:border-dark-line">
                                 {services.map((service, idx) => (
                                     <div key={service.id} className="group relative flex gap-4 md:gap-6 py-5 pl-4 border-b border-line dark:border-dark-line hover:bg-line/20 dark:hover:bg-white/[.03] transition-colors">

@@ -240,7 +240,7 @@ function AwardModal({ award, onSave, onClose }: {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Order</label>
-                            <input type="number" value={formData.order_index ?? ''} onChange={e => setFormData({ ...formData, order_index: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="클수록 위, 비면 자동(ID)" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
+                            <input type="number" value={formData.order_index ?? ''} onChange={e => setFormData({ ...formData, order_index: e.target.value ? parseInt(e.target.value) : undefined })} placeholder="클수록 위, 비면 자동(새 항목 = 맨 위)" className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">CV Order</label>

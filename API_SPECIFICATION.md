@@ -789,7 +789,7 @@ Content-Type: application/json
 Authorization: Required (Session Cookie)
 ```
 
-**Request Body:** `order_index` 생략 시 생성된 행의 `id` 값으로 자동 설정
+**Request Body:** `order_index` 생략 시 생성된 행의 `id` 값으로 자동 설정 (항상 기존 최대값보다 크므로 맨 위에 추가됨)
 ```json
 {
   "conference_name": "CLEO 2024",
@@ -865,7 +865,7 @@ Content-Type: application/json
 Authorization: Required (Session Cookie)
 ```
 
-**Request Body:** `order_index` 생략 시 생성된 행의 `id` 값으로 자동 설정
+**Request Body:** `order_index` 생략 시 생성된 행의 `id` 값으로 자동 설정 (항상 기존 최대값보다 크므로 맨 위에 추가됨)
 ```json
 {
   "title": "Award Title",

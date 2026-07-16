@@ -116,11 +116,7 @@ export default function CoverArtsSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                 >
-                    <SectionHeader
-                        inverted
-                        title="Featured Cover Arts"
-                        count={`${coverArts.length} covers`}
-                    />
+                    <SectionHeader inverted title="Featured Cover Arts" />
                 </motion.div>
             </div>
 

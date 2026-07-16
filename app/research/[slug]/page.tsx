@@ -62,9 +62,7 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
                     {/* Sidebar Navigation */}
                     <aside className="mb-8 lg:mb-0">
                         <div className="lg:sticky lg:top-28">
-                            <MonoLabel>
-                                Research · {String(researchAreas.length).padStart(2, '0')}
-                            </MonoLabel>
+                            <MonoLabel>Research</MonoLabel>
 
                             {/* Desktop: vertical list */}
                             <nav className="hidden lg:block mt-5 space-y-1">
