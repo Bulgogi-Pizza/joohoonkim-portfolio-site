@@ -20,7 +20,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
  *
  * // Relative path - API URL prepended
  * getImageUrl('/uploads/image.jpg')
- * // => 'https://api.joohoonkim.site/uploads/image.jpg'
+ * // => 'https://api.photonicsskku.com/uploads/image.jpg'
  */
 export function getImageUrl(imagePath: string | undefined | null): string {
     if (!imagePath) {

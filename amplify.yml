@@ -3,19 +3,17 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "Setting up environment variables..."
+        # Amplify 콘솔 환경변수를 단일 소스로 사용한다.
+        # 하나만 설정해도 나머지는 같은 값으로 채우고, .env.production 에 기록해
+        # 빌드(next.config.js rewrites, NEXT_PUBLIC_* 인라인)와 SSR 런타임 모두에 적용한다.
+        # 환경변수를 바꾼 뒤에는 새 빌드가 필요하다 (rewrites/NEXT_PUBLIC_* 는 빌드 시점에 고정됨).
         - |
-          if [ -z "$API_URL" ]; then
-            export API_URL="https://api.joohoonkim.site"
-            echo "Set API_URL to default: $API_URL"
-          fi
-        - |
-          if [ -z "$NEXT_PUBLIC_API_URL" ]; then
-            export NEXT_PUBLIC_API_URL="https://api.joohoonkim.site"
-            echo "Set NEXT_PUBLIC_API_URL to default: $NEXT_PUBLIC_API_URL"
-          fi
-        - echo "API_URL=$API_URL"
-        - echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
+          API_URL="${API_URL:-${NEXT_PUBLIC_API_URL:-https://api.photonicsskku.com}}"
+          NEXT_PUBLIC_API_URL="${NEXT_PUBLIC_API_URL:-$API_URL}"
+          NEXT_PUBLIC_SITE_URL="${NEXT_PUBLIC_SITE_URL:-https://www.photonicsskku.com}"
+          printf 'API_URL=%s\nNEXT_PUBLIC_API_URL=%s\nNEXT_PUBLIC_SITE_URL=%s\n' \
+            "$API_URL" "$NEXT_PUBLIC_API_URL" "$NEXT_PUBLIC_SITE_URL" > .env.production
+          echo "Build env:" && cat .env.production
         - npm config set cache .npm --global
         - npm ci --prefer-offline --include=dev
     build:

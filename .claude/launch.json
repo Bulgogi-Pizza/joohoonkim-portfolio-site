@@ -4,7 +4,7 @@
     {
       "name": "dev",
       "runtimeExecutable": "env",
-      "runtimeArgs": ["API_URL=https://api.joohoonkim.site", "npm", "run", "dev"],
+      "runtimeArgs": ["API_URL=https://api.photonicsskku.com", "npm", "run", "dev"],
       "port": 3000,
       "autoPort": true
     }

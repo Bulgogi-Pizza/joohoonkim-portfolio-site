@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono" });
 
-const SITE_URL = "https://joohoonkim.site";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.photonicsskku.com";
 const DESCRIPTION =
   "Joohoon Kim (김주훈) — Postdoctoral Researcher at POSTECH (포스텍), working on nanophotonics, metasurfaces, and scalable nanofabrication. 김주훈 포스텍 나노포토닉스 연구자 포트폴리오.";
 
