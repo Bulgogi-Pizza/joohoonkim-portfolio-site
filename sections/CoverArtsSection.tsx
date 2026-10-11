@@ -49,7 +49,7 @@ export default function CoverArtsSection() {
     const reqId = React.useRef<number>();
 
     // Configuration
-    const BASE_SPEED = 1.7; // Normal speed
+    const BASE_SPEED = 1.2; // Normal speed
     const DAMPING = 0.05; // Smoothing factor (0.05 = gradual, 1 = instant)
 
     useEffect(() => {
@@ -133,7 +133,7 @@ export default function CoverArtsSection() {
                             key={`${art.id}-${index}`}
                             onClick={() => openLink(art.link)}
                             whileHover={{ scale: art.link ? 1.05 : 1 }}
-                            className={`text-left flex-shrink-0 w-[240px] md:w-[280px] lg:w-[350px] relative group rounded overflow-hidden border border-white/15 bg-white/[.03] transition-all duration-200 hover:border-white/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${art.link ? 'cursor-pointer' : 'cursor-default'}`}
+                            className={`text-left flex-shrink-0 w-[192px] md:w-[224px] lg:w-[280px] relative group rounded overflow-hidden border border-white/15 bg-white/[.03] transition-all duration-200 hover:border-white/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${art.link ? 'cursor-pointer' : 'cursor-default'}`}
                             aria-label={art.link ? `Open ${art.title}` : undefined}
                             disabled={!art.link}
                         >

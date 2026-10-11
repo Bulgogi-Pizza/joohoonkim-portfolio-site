@@ -92,7 +92,7 @@ const ProfileSection = ({ profile }: { profile: CVProfile }) => {
                         {profile.name}
                     </h1>
                     {profile.title && (
-                        <p className="mt-2 text-base md:text-lg font-medium text-ink-2 dark:text-dark-ink-2">
+                        <p className="mt-2 text-base md:text-lg font-medium text-ink-2 dark:text-dark-ink-2 whitespace-pre-line">
                             {profile.title}
                         </p>
                     )}
@@ -268,7 +268,7 @@ export default function CVPage() {
                         </div>
                     </CVSection>
 
-                    <CVSection title="Selective Honors and Awards" link="/awards">
+                    <CVSection title="Selective Honors and Awards" link="/awards/pi">
                         <div className="border-t border-line dark:border-dark-line">
                             {awards.map(award => (
                                 <div key={award.id} className={rowClass}>

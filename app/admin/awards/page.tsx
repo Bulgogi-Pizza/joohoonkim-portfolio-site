@@ -3,8 +3,13 @@
 import { useEffect, useState } from 'react';
 import { AdminAPI } from '@/lib/adminApi';
 
+type AwardCategory = 'pi' | 'student';
+
+const CATEGORY_LABELS: Record<AwardCategory, string> = { pi: 'PI', student: 'Student' };
+
 interface Award {
     id?: number;
+    category: AwardCategory;
     title: string;
     organization: string;
     location: string;
@@ -20,6 +25,7 @@ export default function AwardsAdmin() {
     const [loading, setLoading] = useState(true);
     const [editingAward, setEditingAward] = useState<Award | null>(null);
     const [showModal, setShowModal] = useState(false);
+    const [categoryFilter, setCategoryFilter] = useState<AwardCategory | 'all'>('all');
 
     useEffect(() => {
         loadAwards();
@@ -61,6 +67,10 @@ export default function AwardsAdmin() {
         }
     };
 
+    const visibleAwards = categoryFilter === 'all'
+        ? awards
+        : awards.filter((award) => award.category === categoryFilter);
+
     if (loading) {
         return <div className="flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -77,6 +87,7 @@ export default function AwardsAdmin() {
                 <button
                     onClick={() => {
                         setEditingAward({
+                            category: 'pi',
                             title: '',
                             organization: '',
                             location: '',
@@ -91,10 +102,26 @@ export default function AwardsAdmin() {
                 </button>
             </div>
 
+            <div className="flex gap-2 mb-4">
+                {(['all', 'pi', 'student'] as const).map((key) => (
+                    <button
+                        key={key}
+                        onClick={() => setCategoryFilter(key)}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition ${categoryFilter === key
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                            }`}
+                    >
+                        {key === 'all' ? 'All' : CATEGORY_LABELS[key]}
+                    </button>
+                ))}
+            </div>
+
             <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
                 <table className="w-full">
                     <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Category</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Title</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Organization</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Year</th>
@@ -106,8 +133,9 @@ export default function AwardsAdmin() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {awards.map((award) => (
+                        {visibleAwards.map((award) => (
                             <tr key={award.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{CATEGORY_LABELS[award.category]}</td>
                                 <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">{award.title}</td>
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{award.organization}</td>
                                 <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">{award.year}</td>
@@ -176,6 +204,18 @@ function AwardModal({ award, onSave, onClose }: {
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category *</label>
+                        <select
+                            value={formData.category}
+                            onChange={(e) => setFormData({ ...formData, category: e.target.value as AwardCategory })}
+                            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        >
+                            <option value="pi">PI</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title *</label>
                         <input

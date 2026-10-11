@@ -95,13 +95,13 @@ function HeroSection() {
                         className="space-y-8 order-2 md:order-1"
                     >
                         <div className="space-y-5">
-                            <h1 className="font-heading text-5xl lg:text-7xl font-bold tracking-[-0.03em] text-ink dark:text-dark-ink leading-[1.02]">
-                                {heroContent.title}{' '}
-                                <span className="text-accent dark:text-dark-accent inline-block">
+                            <h1 className="font-heading text-4xl sm:text-5xl xl:text-6xl font-bold tracking-[-0.03em] text-ink dark:text-dark-ink leading-[1.05]">
+                                <span className="block">{heroContent.title}</span>
+                                <span className="block text-accent dark:text-dark-accent">
                                     {heroContent.title_highlight}
                                 </span>
                             </h1>
-                            <p className="text-base lg:text-lg text-ink-2 dark:text-dark-ink-2 leading-relaxed max-w-xl">
+                            <p className="text-base lg:text-lg text-ink-2 dark:text-dark-ink-2 leading-relaxed max-w-xl whitespace-pre-line break-keep">
                                 {heroContent.description}
                             </p>
                         </div>

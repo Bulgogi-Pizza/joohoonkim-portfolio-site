@@ -64,6 +64,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const navItems = [
         { name: 'Hero Content', href: '/admin/hero' },
         { name: 'Publications', href: '/admin/publications' },
+        { name: 'Members', href: '/admin/members' },
         { name: 'Awards', href: '/admin/awards' },
         { name: 'Education', href: '/admin/education' },
         { name: 'Experience', href: '/admin/experience' },
@@ -75,6 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { name: 'Cover Arts', href: '/admin/cover-arts' },
         { name: 'Conferences', href: '/admin/conferences' },
         { name: 'Media', href: '/admin/media' },
+        { name: 'Opening', href: '/admin/opening' },
     ];
 
     return (

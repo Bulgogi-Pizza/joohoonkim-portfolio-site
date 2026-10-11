@@ -22,7 +22,7 @@ const defaultHero: HeroContent = {
     cta_primary_text: 'Explore Research',
     cta_primary_link: '/research',
     cta_secondary_text: 'View CV',
-    cta_secondary_link: '/cv',
+    cta_secondary_link: '/members/pi',
     is_active: true
 };
 
@@ -184,7 +184,7 @@ function Modal({ item, onSave, onClose }: { item: HeroContent; onSave: (item: He
                         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                             {formData.title} <span className="text-blue-600 dark:text-blue-400">{formData.title_highlight}</span>
                         </h1>
-                        <p className="text-gray-600 dark:text-gray-300 mb-4">{formData.description}</p>
+                        <p className="text-gray-600 dark:text-gray-300 mb-4 whitespace-pre-line">{formData.description}</p>
                         <div className="flex gap-3">
                             <span className="px-4 py-2 bg-blue-600 text-white text-sm rounded">{formData.cta_primary_text}</span>
                             <span className="px-4 py-2 border border-gray-300 text-gray-700 dark:text-gray-300 text-sm rounded">{formData.cta_secondary_text}</span>
@@ -278,7 +278,7 @@ function Modal({ item, onSave, onClose }: { item: HeroContent; onSave: (item: He
                                 value={formData.cta_secondary_link}
                                 onChange={(e) => setFormData({ ...formData, cta_secondary_link: e.target.value })}
                                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                placeholder="e.g., /cv"
+                                placeholder="e.g., /members/pi"
                             />
                         </div>
                     </div>

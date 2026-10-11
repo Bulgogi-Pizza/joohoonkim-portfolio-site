@@ -11,7 +11,6 @@ import Card from '@/components/ui/Card';
 interface ResearchArea {
     slug: string;
     title: string;
-    description: string;
     icon_path?: string;
 }
 
@@ -27,9 +26,9 @@ export default function ResearchSection() {
 
     const getIcon = (slug: string) => {
         switch (slug) {
-            case 'metasurface': return <FiLayers className="w-7 h-7" />;
-            case 'nanofabrication': return <FiCpu className="w-7 h-7" />;
-            default: return <FiActivity className="w-7 h-7" />;
+            case 'metasurface': return <FiLayers className="w-9 h-9" />;
+            case 'nanofabrication': return <FiCpu className="w-9 h-9" />;
+            default: return <FiActivity className="w-9 h-9" />;
         }
     };
 
@@ -52,29 +51,26 @@ export default function ResearchSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
+                            className="h-full"
                         >
-                            <Card href={`/research/${area.slug}`} topBar className="group p-7 h-full">
+                            <Card href={`/research/${area.slug}`} topBar className="group p-7 h-full flex flex-col">
                                 <div className="mb-5 text-accent dark:text-dark-accent">
                                     {area.icon_path ? (
                                         <img
                                             src={getImageUrl(area.icon_path)}
                                             alt=""
-                                            className="w-8 h-8 object-contain mix-blend-multiply dark:mix-blend-screen dark:invert"
+                                            className="w-10 h-10 object-contain mix-blend-multiply dark:mix-blend-screen dark:invert"
                                         />
                                     ) : (
                                         getIcon(area.slug)
                                     )}
                                 </div>
 
-                                <h3 className="font-heading text-lg font-bold text-ink dark:text-dark-ink mb-2 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors">
+                                <h3 className="font-heading text-lg font-bold text-ink dark:text-dark-ink mb-5 group-hover:text-accent dark:group-hover:text-dark-accent transition-colors">
                                     {area.title}
                                 </h3>
 
-                                <p className="text-sm text-ink-2 dark:text-dark-ink-2 leading-relaxed mb-5 line-clamp-3">
-                                    {area.description.replace(/!\[.*?\]\(.*?\)/g, '').replace(/##/g, '').replace(/\*\*/g, '')}
-                                </p>
-
-                                <span className="inline-flex items-center gap-1 text-sm text-accent dark:text-dark-accent font-semibold group-hover:gap-2.5 transition-all">
+                                <span className="mt-auto self-start inline-flex items-center gap-1 text-sm text-accent dark:text-dark-accent font-semibold group-hover:gap-2.5 transition-all">
                                     Learn more <FiArrowRight />
                                 </span>
                             </Card>
