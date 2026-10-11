@@ -9,14 +9,15 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono" });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.photonicsskku.com";
+const SITE_TITLE = "PhoS Lab @ SKKU";
 const DESCRIPTION =
   "Joohoon Kim (김주훈) — Postdoctoral Researcher at POSTECH (포스텍), working on nanophotonics, metasurfaces, and scalable nanofabrication. 김주훈 포스텍 나노포토닉스 연구자 포트폴리오.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Joohoon Kim (김주훈) | Nanophotonics Researcher, POSTECH",
-    template: "%s | Joohoon Kim (김주훈)",
+    default: SITE_TITLE,
+    template: `%s | ${SITE_TITLE}`,
   },
   description: DESCRIPTION,
   keywords: [
@@ -41,15 +42,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "profile",
     url: SITE_URL,
-    siteName: "Joohoon Kim (김주훈)",
-    title: "Joohoon Kim (김주훈) | Nanophotonics Researcher, POSTECH",
+    siteName: SITE_TITLE,
+    title: SITE_TITLE,
     description: DESCRIPTION,
     locale: "en_US",
     alternateLocale: ["ko_KR"],
   },
   twitter: {
     card: "summary",
-    title: "Joohoon Kim (김주훈) | Nanophotonics Researcher, POSTECH",
+    title: SITE_TITLE,
     description: DESCRIPTION,
   },
   robots: { index: true, follow: true },

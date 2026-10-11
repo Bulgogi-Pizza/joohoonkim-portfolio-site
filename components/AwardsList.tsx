@@ -14,7 +14,9 @@ interface Award {
     order_index?: number;
 }
 
-export default function AwardsPage() {
+export type AwardCategory = 'pi' | 'student';
+
+export default function AwardsList({ category, title }: { category: AwardCategory; title: string }) {
     const [awards, setAwards] = useState<Award[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -22,7 +24,7 @@ export default function AwardsPage() {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetch('/api/awards')
+        fetch(`/api/awards?category=${category}`)
             .then(res => res.json())
             .then(data => {
                 setAwards(data);
@@ -33,7 +35,7 @@ export default function AwardsPage() {
                 setError('Failed to load awards data');
                 setLoading(false);
             });
-    }, []);
+    }, [category]);
 
     // Filtered data
     const filteredAwards = awards.filter(award => {
@@ -74,7 +76,7 @@ export default function AwardsPage() {
                 {/* Page Header */}
                 <div className="mb-10">
                     <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
-                        Awards
+                        {title}
                     </h1>
                     <div className="pt-4">
                         <MonoLabel>
