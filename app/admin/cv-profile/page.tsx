@@ -114,8 +114,8 @@ export default function CVProfileAdmin() {
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title / Position</label>
-                    <input
-                        type="text"
+                    <textarea
+                        rows={3}
                         value={profile.title}
                         onChange={e => setProfile({ ...profile, title: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"

@@ -66,6 +66,17 @@ export class AdminAPI {
         return res.json();
     }
 
+    static async put(resource: string, data: any) {
+        const res = await fetch(`${API_BASE}/api/${resource}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            credentials: 'include',
+        });
+        if (!res.ok) throw new Error(`Failed to update ${resource}`);
+        return res.json();
+    }
+
     static async delete(resource: string, id: number) {
         const res = await fetch(`${API_BASE}/api/${resource}/${id}`, {
             method: 'DELETE',
