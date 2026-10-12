@@ -81,7 +81,7 @@ function Navbar() {
 
     return (
         <nav className={navClasses}>
-            <div className="container mx-auto px-6 lg:px-12">
+            <div className="container mx-auto px-gutter">
                 <div className="flex justify-between items-center">
                     {/* Logo */}
                     <Link href="/" className="group flex items-center gap-3">
@@ -101,7 +101,7 @@ function Navbar() {
                     </Link>
 
                     {/* Desktop Menu */}
-                    <div className="hidden lg:flex items-center space-x-5 xl:space-x-8">
+                    <div className="hidden lg:flex items-center gap-nav-gap">
                         {menuItems.map((item) => (
                             <div
                                 key={item.name}
@@ -112,7 +112,7 @@ function Navbar() {
                                 <Link
                                     href={item.to}
                                     className={`
-                          flex items-center gap-1 font-mono text-[13px] xl:text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-300 relative
+                          flex items-center gap-1 font-mono text-nav font-semibold uppercase tracking-[0.14em] transition-all duration-300 relative
                           ${isActive(item) ? 'text-ink dark:text-dark-ink after:w-full' : 'text-ink-3 dark:text-dark-ink-3 hover:text-ink dark:hover:text-dark-ink'}
 after:content-[''] after:absolute after:left-0 after:bottom-[-5px] after:w-0 after:h-[2px]
 after:bg-ink dark:after:bg-dark-ink after:transition-all after:duration-300 hover:after:w-full

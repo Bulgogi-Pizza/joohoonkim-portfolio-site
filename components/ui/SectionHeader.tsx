@@ -15,7 +15,7 @@ export default function SectionHeader({ title, action, inverted = false, classNa
 
     return (
         <div className={`border-t-2 ${ruleClass} pt-4 mb-10 flex items-baseline justify-between gap-4 ${className}`}>
-            <h2 className={`font-heading text-2xl md:text-3xl font-bold tracking-tight ${titleClass} truncate`}>
+            <h2 className={`font-heading text-section-title font-bold tracking-tight ${titleClass} truncate`}>
                 {title}
             </h2>
             {action}

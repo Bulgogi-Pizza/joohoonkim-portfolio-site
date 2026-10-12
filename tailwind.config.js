@@ -9,7 +9,22 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
+    // 브레이크포인트마다 max-width가 계단식으로 바뀌면 창 크기 조절 시 레이아웃이 튀므로, 1536px까지는 폭을 그대로 따라가게 한다
+    container: {
+      screens: { '2xl': '1536px' },
+    },
     extend: {
+      // 창 폭에 비례해 연속으로 변하는 값 (기존 브레이크포인트 값 사이를 선형 보간)
+      spacing: {
+        gutter: 'clamp(1.5rem, 4vw, 3rem)',
+        'nav-gap': 'clamp(1.25rem, calc(4.69vw - 1.75rem), 2rem)',
+      },
+      fontSize: {
+        hero: ['clamp(2.25rem, calc(0.75rem + 3.75vw), 3.75rem)', { lineHeight: '1.05' }],
+        'page-title': ['clamp(1.875rem, calc(1.25rem + 1.5625vw), 2.25rem)', { lineHeight: '1.15' }],
+        'section-title': ['clamp(1.5rem, calc(0.875rem + 1.5625vw), 1.875rem)', { lineHeight: '1.25' }],
+        nav: ['clamp(13px, calc(8px + 0.5vw), 14px)', { lineHeight: '1.25rem' }],
+      },
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
         heading: ['var(--font-space-grotesk)', 'sans-serif'],
