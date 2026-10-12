@@ -56,7 +56,7 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
 
     return (
         <div className="min-h-screen">
-            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
+            <div className="container mx-auto px-gutter max-w-6xl py-10 md:py-14">
                 <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-14">
 
                     {/* Sidebar Navigation */}
@@ -103,7 +103,7 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
                         <MonoLabel color="accent">
                             Research Area {String(activeIndex + 1).padStart(2, '0')}
                         </MonoLabel>
-                        <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink mt-3 mb-8 pb-6 border-b border-line dark:border-dark-line">
+                        <h1 className="font-heading text-page-title font-bold tracking-tight text-ink dark:text-dark-ink mt-3 mb-8 pb-6 border-b border-line dark:border-dark-line">
                             {activeArea.title}
                         </h1>
 
@@ -118,7 +118,7 @@ export default function ResearchSlugPage({ params }: { params: { slug: string } 
                                         <a {...props} className="text-accent dark:text-dark-accent hover:opacity-70 underline underline-offset-2 break-words transition-opacity" target="_blank" rel="noopener noreferrer" />
                                     ),
                                     h1: ({ node, ...props }) => (
-                                        <h1 {...props} className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-4 mt-10" />
+                                        <h1 {...props} className="font-heading text-section-title font-bold tracking-tight text-ink dark:text-dark-ink mb-4 mt-10" />
                                     ),
                                     h2: ({ node, ...props }) => (
                                         <h2 {...props} className="font-heading text-xl md:text-2xl font-bold tracking-tight text-ink dark:text-dark-ink mb-4 mt-10" />

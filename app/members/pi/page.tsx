@@ -88,7 +88,7 @@ const ProfileSection = ({ profile }: { profile: CVProfile }) => {
                 </div>
                 <div className="flex-1 min-w-0">
                     <MonoLabel color="accent">Curriculum Vitae</MonoLabel>
-                    <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink mt-3">
+                    <h1 className="font-heading text-page-title font-bold tracking-tight text-ink dark:text-dark-ink mt-3">
                         {profile.name}
                     </h1>
                     {profile.title && (
@@ -207,7 +207,7 @@ export default function CVPage() {
 
     return (
         <div className="min-h-screen">
-            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
+            <div className="container mx-auto px-gutter max-w-6xl py-10 md:py-14">
                 {profile && <ProfileSection profile={profile} />}
 
                 <main className="space-y-14 md:space-y-16">

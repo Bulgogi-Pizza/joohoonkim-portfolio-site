@@ -34,7 +34,7 @@ export default function ResearchSection() {
 
     return (
         <section id="research" className="py-10 md:py-14">
-            <div className="container mx-auto px-6 lg:px-12 max-w-6xl">
+            <div className="container mx-auto px-gutter max-w-6xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

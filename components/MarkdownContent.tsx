@@ -15,7 +15,7 @@ export default function MarkdownContent({ content }: { content: string }) {
                         <a {...props} className="text-accent dark:text-dark-accent hover:opacity-70 underline underline-offset-2 break-words transition-opacity" target="_blank" rel="noopener noreferrer" />
                     ),
                     h1: ({ node, ...props }) => (
-                        <h1 {...props} className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-ink dark:text-dark-ink mb-4 mt-10 first:mt-0" />
+                        <h1 {...props} className="font-heading text-section-title font-bold tracking-tight text-ink dark:text-dark-ink mb-4 mt-10 first:mt-0" />
                     ),
                     h2: ({ node, ...props }) => (
                         <h2 {...props} className="font-heading text-xl md:text-2xl font-bold tracking-tight text-ink dark:text-dark-ink mb-4 mt-10 first:mt-0" />
