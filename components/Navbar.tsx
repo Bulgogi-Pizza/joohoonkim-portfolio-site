@@ -88,20 +88,20 @@ function Navbar() {
                         <img
                             src="/images/skku-logo.png"
                             alt="Sungkyunkwan University"
-                            className="w-11 h-11 rounded-full dark:bg-white"
+                            className="w-14 h-14 rounded-full dark:bg-white"
                         />
                         <div className="leading-none">
                             <span className="block font-heading text-xl font-bold tracking-tight text-ink dark:text-dark-ink group-hover:text-accent dark:group-hover:text-dark-accent transition-colors">
                                 PhoS Lab
                             </span>
-                            <span className="block mt-1.5 pt-1.5 border-t border-ink/20 dark:border-white/20 text-[11px] text-ink-3 dark:text-dark-ink-3">
+                            <span className="block mt-0.5 pt-1.5 border-t border-ink/20 dark:border-white/20 text-[11px] text-ink-3 dark:text-dark-ink-3">
                                 광반도체 설계·제조 연구실
                             </span>
                         </div>
                     </Link>
 
                     {/* Desktop Menu */}
-                    <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+                    <div className="hidden lg:flex items-center space-x-5 xl:space-x-8">
                         {menuItems.map((item) => (
                             <div
                                 key={item.name}
@@ -112,7 +112,7 @@ function Navbar() {
                                 <Link
                                     href={item.to}
                                     className={`
-                          flex items-center gap-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-300 relative
+                          flex items-center gap-1 font-mono text-[13px] xl:text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-300 relative
                           ${isActive(item) ? 'text-ink dark:text-dark-ink after:w-full' : 'text-ink-3 dark:text-dark-ink-3 hover:text-ink dark:hover:text-dark-ink'}
 after:content-[''] after:absolute after:left-0 after:bottom-[-5px] after:w-0 after:h-[2px]
 after:bg-ink dark:after:bg-dark-ink after:transition-all after:duration-300 hover:after:w-full
