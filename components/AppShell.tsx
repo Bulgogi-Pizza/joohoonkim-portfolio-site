@@ -17,7 +17,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </main>
             {!isAdminPage && (
                 <footer className="border-t border-line dark:border-dark-line mt-14">
-                    <div className="container mx-auto px-6 lg:px-8 py-8">
+                    <div className="container mx-auto px-gutter py-8">
                         <p className="text-center font-mono text-xs tracking-widest uppercase text-ink-3 dark:text-dark-ink-3">
                             &copy; 2026 Joohoon Kim. All rights reserved.
                         </p>

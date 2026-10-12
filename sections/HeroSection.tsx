@@ -85,7 +85,7 @@ function HeroSection() {
 
     return (
         <section className="transition-colors">
-            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-16">
+            <div className="container mx-auto px-gutter max-w-6xl py-10 md:py-16">
                 <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
                     {/* Left: Text Content */}
                     <motion.div
@@ -95,7 +95,7 @@ function HeroSection() {
                         className="space-y-8 order-2 md:order-1"
                     >
                         <div className="space-y-5">
-                            <h1 className="font-heading text-4xl sm:text-5xl xl:text-6xl font-bold tracking-[-0.03em] text-ink dark:text-dark-ink leading-[1.05]">
+                            <h1 className="font-heading text-hero font-bold tracking-[-0.03em] text-ink dark:text-dark-ink">
                                 <span className="block">{heroContent.title}</span>
                                 <span className="block text-accent dark:text-dark-accent">
                                     {heroContent.title_highlight}

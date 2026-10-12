@@ -110,7 +110,7 @@ export default function CoverArtsSection() {
 
     return (
         <section className="py-14 md:py-20 my-6 bg-ink dark:bg-black/40 overflow-hidden">
-            <div className="container mx-auto px-6 lg:px-12 max-w-6xl mb-2">
+            <div className="container mx-auto px-gutter max-w-6xl mb-2">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

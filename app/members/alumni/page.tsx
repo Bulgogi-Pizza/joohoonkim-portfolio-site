@@ -40,8 +40,8 @@ export default function AlumniPage() {
 
     return (
         <div className="min-h-screen">
-            <div className="container mx-auto px-6 lg:px-12 max-w-6xl py-10 md:py-14">
-                <h1 className="mb-10 font-heading text-3xl md:text-4xl font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
+            <div className="container mx-auto px-gutter max-w-6xl py-10 md:py-14">
+                <h1 className="mb-10 font-heading text-page-title font-bold tracking-tight text-ink dark:text-dark-ink pb-6 border-b border-line dark:border-dark-line">
                     Alumni
                 </h1>
 
