@@ -32,7 +32,7 @@ export default function MemberCard({ member, href }: { member: Member; href?: st
                     className="absolute inset-0 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                 />
             )}
-            <div className="shrink-0 w-24 h-24 sm:w-32 sm:h-32 rounded overflow-hidden border border-line dark:border-dark-line">
+            <div className="shrink-0 self-start w-24 sm:w-32 aspect-[3/4] rounded overflow-hidden border border-line dark:border-dark-line">
                 {member.image_path ? (
                     <img src={getImageUrl(member.image_path)} alt={member.name} className="w-full h-full object-cover" />
                 ) : (
