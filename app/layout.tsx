@@ -11,7 +11,7 @@ const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], var
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.photonicsskku.com";
 const SITE_TITLE = "PhoS Lab @ SKKU";
 const DESCRIPTION =
-  "Joohoon Kim (김주훈) — Postdoctoral Researcher at POSTECH (포스텍), working on nanophotonics, metasurfaces, and scalable nanofabrication. 김주훈 포스텍 나노포토닉스 연구자 포트폴리오.";
+  "Photonic Semiconductor Design & Manufacturing (PhoS) Lab at Sungkyunkwan University (SKKU), led by Joohoon Kim. 성균관대학교 기계공학부 광반도체 설계·제조 연구실.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -21,13 +21,14 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
+    "PhoS Lab", "광반도체 설계·제조 연구실", "광반도체", "성균관대 기계공학부",
     "Joohoon Kim", "김주훈", "김주훈 교수", "김주훈 포스텍", "포스텍 김주훈",
     "성균관대 김주훈", "김주훈 성균관대", "성균관대학교", "SKKU",
     "POSTECH", "포스텍", "nanophotonics", "나노포토닉스",
     "metasurface", "메타표면", "메타서피스", "nanofabrication", "나노공정",
     "silicon photonics", "실리콘 포토닉스", "PIC", "photonic integrated circuit",
     "optical computing", "광컴퓨팅",
-    "Junsuk Rho", "노준석", "박사후연구원",
+    "Junsuk Rho", "노준석",
   ],
   authors: [{ name: "Joohoon Kim", url: SITE_URL }],
   alternates: { canonical: SITE_URL },
@@ -62,11 +63,11 @@ const personJsonLd = {
   name: "Joohoon Kim",
   alternateName: ["김주훈", "Kim Joohoon"],
   url: SITE_URL,
-  jobTitle: "Postdoctoral Researcher",
+  jobTitle: "Assistant Professor",
   affiliation: {
     "@type": "CollegeOrUniversity",
-    name: "POSTECH (Pohang University of Science and Technology)",
-    alternateName: "포스텍",
+    name: "Sungkyunkwan University (SKKU)",
+    alternateName: "성균관대학교",
   },
   knowsAbout: [
     "Nanophotonics", "나노포토닉스", "Metasurfaces", "메타표면",
