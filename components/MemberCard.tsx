@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FiMail, FiUser } from 'react-icons/fi';
 import { getImageUrl } from '@/lib/imageUtils';
 
-export type MemberCategory = 'pi' | 'researcher' | 'alumni';
+export type MemberCategory = 'pi' | 'researcher' | 'undergraduate' | 'alumni';
 
 export interface Member {
     id: number;

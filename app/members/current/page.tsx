@@ -13,14 +13,16 @@ const fetchMembers = (category: Member['category']): Promise<Member[]> =>
 export default function CurrentTeamPage() {
     const [pis, setPis] = useState<Member[]>([]);
     const [researchers, setResearchers] = useState<Member[]>([]);
+    const [undergraduates, setUndergraduates] = useState<Member[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        Promise.all([fetchMembers('pi'), fetchMembers('researcher')])
-            .then(([piData, researcherData]) => {
+        Promise.all([fetchMembers('pi'), fetchMembers('researcher'), fetchMembers('undergraduate')])
+            .then(([piData, researcherData, undergraduateData]) => {
                 setPis(piData);
                 setResearchers(researcherData);
+                setUndergraduates(undergraduateData);
             })
             .catch(err => {
                 console.error('Error fetching members:', err);
@@ -67,6 +69,15 @@ export default function CurrentTeamPage() {
                             <SectionHeader title="Researchers" />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {researchers.map(member => <MemberCard key={member.id} member={member} />)}
+                            </div>
+                        </section>
+                    )}
+
+                    {undergraduates.length > 0 && (
+                        <section>
+                            <SectionHeader title="Undergraduate Researchers" />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {undergraduates.map(member => <MemberCard key={member.id} member={member} />)}
                             </div>
                         </section>
                     )}
